@@ -1,10 +1,169 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import tkinter as tk
-from tkinter import ttk, scrolledtext
+from tkinter import simpledialog, ttk
+import threading
+import time
 import json
 import requests
 from tkinter import messagebox
 from datetime import datetime, timedelta
 import os  # Import the os module
+
+from AutoLogin.AutoLoginSalonAfterCreate import LoginDialog
+
+
+# ... (Previous LoginDialog class remains the same) ...
+
+def perform_login(driver, retailer_name, username, password, environment):
+    wait = WebDriverWait(driver, 10)
+    
+    def safe_find_and_fill(selector_strategies, value, error_msg):
+        for by, selector in selector_strategies:
+            try:
+                element = wait.until(EC.presence_of_element_located((by, selector)))
+                element.clear()
+                element.send_keys(value)
+                return True
+            except (TimeoutException, NoSuchElementException):
+                continue
+        print(f"Failed to find element: {error_msg}")
+        return False
+
+    try:
+        # Define multiple selector strategies for each field
+        retailer_selectors = [
+            (By.ID, "Retailer"),
+            (By.NAME, "Retailer"),
+            (By.CSS_SELECTOR, "input[placeholder*='retailer']"),
+            (By.CSS_SELECTOR, "input[placeholder*='Retailer']")
+        ]
+        
+        username_selectors = [
+            (By.ID, "UserName"),
+            (By.NAME, "UserName"),
+            (By.CSS_SELECTOR, "input[placeholder*='username']"),
+            (By.CSS_SELECTOR, "input[placeholder*='Username']")
+        ]
+        
+        password_selectors = [
+            (By.ID, "Password"),
+            (By.NAME, "Password"),
+            (By.CSS_SELECTOR, "input[type='password']")
+        ]
+        
+        login_button_selectors = [
+            (By.NAME, "quan-ly"),
+            (By.CSS_SELECTOR, "input[name='quan-ly']"),
+            (By.CSS_SELECTOR, "button[type='submit']"),
+            (By.CSS_SELECTOR, ".login-button"),
+            (By.XPATH, "//button[contains(text(), 'Login')]"),
+            (By.XPATH, "//input[@value='Login']")
+        ]
+
+        # Try to find and fill each field
+        if not safe_find_and_fill(retailer_selectors, retailer_name, "Retailer field"):
+            # If we can't find elements, try waiting a bit and refreshing
+            time.sleep(2)
+            driver.refresh()
+            time.sleep(2)
+            if not safe_find_and_fill(retailer_selectors, retailer_name, "Retailer field after refresh"):
+                raise Exception("Could not find retailer input field")
+
+        if not safe_find_and_fill(username_selectors, username, "Username field"):
+            raise Exception("Could not find username input field")
+
+        if not safe_find_and_fill(password_selectors, password, "Password field"):
+            raise Exception("Could not find password input field")
+
+        # Try to find and click the login button
+        for by, selector in login_button_selectors:
+            try:
+                button = wait.until(EC.element_to_be_clickable((by, selector)))
+                button.click()
+                print("Successfully clicked login button")
+                return
+            except (TimeoutException, NoSuchElementException):
+                continue
+
+        # If we get here, we couldn't find the login button
+        raise Exception("Could not find login button")
+
+    except Exception as e:
+        print(f"Login error: {str(e)}")
+        raise e
+
+def auto_login():
+    try:
+        dialog = LoginDialog()
+        custom_account, environment = dialog.show_dialog()
+        
+        options = webdriver.ChromeOptions()
+        options.add_argument('--start-maximized')
+        options.add_argument('--incognito')
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--ignore-ssl-errors')
+        # Add these options to help with local development
+        if environment == "local":
+            options.add_argument('--allow-insecure-localhost')
+            options.add_argument('--disable-web-security')
+            options.add_argument('--reduce-security-for-testing')
+        
+        options.binary_location = r"C:\Users\thang.th4\AppData\Local\CocCoc\Browser\Application\browser.exe"
+        
+        driver = webdriver.Chrome(options=options)
+        
+        if custom_account:
+            retailer_name = custom_account
+            username = custom_account
+        else:
+            with open('D:/codeAuto/CodeAuto/CreateAccountSalonAuto/retailer_config.json', 'r') as file:
+                config = json.load(file)
+                current_number = str(int(config.get("start_number", "46")) - 1)
+            retailer_name = f"sth{current_number}"
+            username = retailer_name
+            
+        password = "123"
+        
+        if environment == "local":
+            base_url = "http://booking.localhost.com:86"
+            login_url = f"{base_url}/login"  # Simplified URL for local
+        else:
+            base_url = "https://salon-dev.booking.citigo.net"
+            login_url = f"{base_url}/login?redirect=%2f{retailer_name}%2f#f=Unauthorized"
+        
+        print(f"Starting login process for account: {retailer_name} on {environment} environment")
+        print(f"Using URL: {login_url}")
+        
+        driver.get(login_url)
+        
+        # Add a wait for page load
+        wait = WebDriverWait(driver, 10)
+        try:
+            # Wait for any of the possible login form elements to be present
+            wait.until(lambda d: any([
+                len(d.find_elements(By.ID, "Retailer")) > 0,
+                len(d.find_elements(By.NAME, "Retailer")) > 0,
+                len(d.find_elements(By.CSS_SELECTOR, "input[type='text']")) > 0
+            ]))
+        except TimeoutException:
+            print("Warning: Page load wait timeout - attempting login anyway")
+        
+        perform_login(driver, retailer_name, username, password, environment)
+        
+        print("Login completed - Browser window will remain open")
+        
+        while True:
+            time.sleep(1)
+            
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        if 'driver' in locals():
+            driver.save_screenshot("login_error.png")
+        return False
 
 class RetailerCreator:
     def __init__(self, root):

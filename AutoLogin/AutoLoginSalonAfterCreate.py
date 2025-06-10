@@ -167,6 +167,8 @@ def auto_login():
         dialog = LoginDialog()
         custom_account, environment = dialog.show_dialog()
         
+        print(f"Selected environment: {environment}")  # Debug log
+        
         options = webdriver.ChromeOptions()
         options.add_argument('--start-maximized')
         options.add_argument('--incognito')
@@ -184,29 +186,36 @@ def auto_login():
         if custom_account:
             retailer_name = custom_account
             username = custom_account
+            print(f"Using custom account: {custom_account}")
         else:
             with open('D:/codeAuto/CodeAuto/CreateAccountSalonAuto/retailer_config.json', 'r') as file:
                 config = json.load(file)
                 current_number = str(int(config.get("start_number", "46")) - 1)
             retailer_name = f"sth{current_number}"
             username = retailer_name
+            print(f"Using default account: {retailer_name}")
             
         password = "123"
         
         # Set up URLs based on environment
         if environment == "local":
-            login_url = "http://booking.localhost.com:86/#/login"
+            login_url = "http://booking.localhost.com:86/login"  # Removed #/ from URL
         else:
             login_url = f"https://salon-dev.booking.citigo.net/login?redirect=%2f{retailer_name}%2f#f=Unauthorized"
         
-        print(f"Starting login process for account: {retailer_name} on {environment} environment")
-        print(f"Using URL: {login_url}")
+        print(f"Environment: {environment}")
+        print(f"Login URL: {login_url}")
         
         # Navigate to the login page
         driver.get(login_url)
+        time.sleep(2)  # Wait for initial page load
+        
+        # Print current URL for debugging
+        print(f"Current URL after navigation: {driver.current_url}")
         
         # Handle security warning if it appears (for local environment)
         if environment == "local":
+            print("Checking for security warning...")
             max_retries = 3
             for attempt in range(max_retries):
                 try:
@@ -225,6 +234,10 @@ def auto_login():
                         print(f"Attempt {attempt + 1} failed, retrying...")
                         time.sleep(1)
         
+        # Print page source for debugging
+        print("Current page source:")
+        print(driver.page_source[:500])
+        
         perform_login(driver, retailer_name, username, password, environment)
         
         print("Login completed - Browser window will remain open")
@@ -238,6 +251,8 @@ def auto_login():
             driver.save_screenshot("login_error.png")
             print("\nPage source at time of error:")
             print(driver.page_source[:500])
+            # Print current URL when error occurs
+            print(f"URL at time of error: {driver.current_url}")
         return False
 
 if __name__ == "__main__":

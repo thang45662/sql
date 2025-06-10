@@ -1,9 +1,9 @@
 {
     "environment": "dev",
-    "start_number": "41",
+    "start_number": "46",
     "username": "admin@kiotviet.com",
     "password": "123",
-    "last_number": "41",
+    "last_number": "46",
     "dev_url": "https://cpanel-salon-dev.booking.citigo.net",
     "stag_url": "https://cpanel-salon-stag.booking.citigo.net"
 }

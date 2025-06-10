@@ -256,7 +256,7 @@ class RetailerCreator:
             payload = {
                 "Retailer": {
                     "AppBrandingId": "1",
-                    "MaximumBranchs": 2,
+                    "MaximumBranchs": 200,
                     "CountryId": 1,
                     "CompanyName": base_name,
                     "CompanyAddress": base_name,
@@ -294,30 +294,50 @@ class RetailerCreator:
             self.log(f"Creating retailer {base_name}...")
             response = requests.post(api_url, headers=headers, json=payload)
             
+            # Parse response
+            response_data = response.json()
+            
             # Handle 401 error
             if response.status_code == 401:
                 self.log("Token expired, getting new token...")
-                token = self.get_token()
-                if token:
-                    self.save_token(token)
-                    # Update headers with new token
-                    headers['Cookie'] = f'ss-tok={token}; ss-opt=temp; ss-pid=cQCvXw3AP3JdBnfG6I1l'
-                    # Retry API call
-                    self.log("Retrying API call with new token...")
-                    response = requests.post(api_url, headers=headers, json=payload)
+                messagebox.showerror("Token Expired", "Token has expired. Please provide new token in tokens.json file")
+                return
+            
+            # Check for error response
+            if 'ResponseStatus' in response_data and response_data['ResponseStatus'].get('ErrorCode'):
+                error_msg = response_data['ResponseStatus'].get('Message', 'Unknown error')
+                self.log(f"Error: {error_msg}")
+            
+                if "đã tồn tại" in error_msg:
+                    # Tự động tăng số và thử lại
+                    current_num += 1
+                    self.start_number_var.set(str(current_num))
+                    self.save_config()
+                    messagebox.showinfo("Retailer exists", 
+                                      f"Retailer {base_name} already exists.\nAutomatically trying next number: {current_num}")
+                    # Gọi đệ quy để thử với số mới
+                    self.create_retailer()
+                    return
+                else:
+                    messagebox.showerror("Error", error_msg)
+                    return
             
             if response.status_code == 200:
-                self.log(f"Retailer {base_name} created successfully!")
+                success_msg = f"Retailer {base_name} created successfully!"
+                self.log(success_msg)
                 # Increment number for next creation
                 self.start_number_var.set(str(current_num + 1))
                 self.save_config()
+                messagebox.showinfo("Success", success_msg)
             else:
-                self.log(f"Error creating retailer: Status {response.status_code}")
-                self.log(f"Response: {response.text}")
+                error_msg = f"Error creating retailer: Status {response.status_code}\nResponse: {response.text}"
+                self.log(error_msg)
+                messagebox.showerror("Error", error_msg)
             
         except Exception as e:
-            self.log(f"Error: {str(e)}")
-            messagebox.showerror("Error", str(e))
+            error_msg = f"Error: {str(e)}"
+            self.log(error_msg)
+            messagebox.showerror("Error", error_msg)
 
     def clear_log(self):
         """Clear the log text area"""

@@ -84,7 +84,7 @@ BEGIN
 		@workingDays1 OUTPUT, @workingDays2 OUTPUT, @workingDaysPrev1 OUTPUT, @workingDaysPrev2 OUTPUT
 
 	-- tạo chấm công
-	EXEC [pr_Booking_Insert_TrialData_Clocking] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @shiftId1, @shiftId2, @timeSheetId1, @timeSheetId2, @useNewTimeSheet, @monday, @sunday
+	EXEC [pr_Booking_Insert_TrialData_Clocking] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @shiftId1, @shiftId2, @timeSheetId1, @timeSheetId2, @useNewTimeSheet, @monday, @sunday, @prevTimeSheetId1, @prevTimeSheetId2
 
 	-- ✅ tạo bảng lương đồng bộ với TimeSheet
 	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language, @paysheetId OUTPUT, @paysheetIdPrev OUTPUT

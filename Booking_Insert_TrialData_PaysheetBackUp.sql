@@ -52,6 +52,8 @@ BEGIN
     ------------------------------------------
 	DECLARE @currentStartDate DATE = CAST(GETDATE() AS DATE)
 	DECLARE @endDate DATETIME = EOMONTH(@currentStartDate)
+    DECLARE @workingDayNumber INT
+    SET @workingDayNumber = DAY(EOMONTH(GETDATE()))
 	DECLARE @paysheetPeriodName VARCHAR(100) = CONVERT(VARCHAR, @currentStartDate, 103) + ' - ' + CONVERT(VARCHAR, @endDate, 103)
 	SET @paysheetId = NEXT VALUE FOR PaysheetSeq
 
@@ -66,7 +68,7 @@ BEGIN
             @paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(),
             N'General Salary Table ' + @paysheetPeriodName,
             1, @currentStartDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2),
-            1, '', DATEDIFF(DAY, @currentStartDate, @endDate) + 1, @paysheetPeriodName,
+            1, '', @workingDayNumber, @paysheetPeriodName,
             @userId, GETDATE(), 0, 0, 8
         )
     END
@@ -81,7 +83,7 @@ BEGIN
             @paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(),
             N'Bảng lương ' + @paysheetPeriodName,
             1, @currentStartDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2),
-            1, '', DATEDIFF(DAY, @currentStartDate, @endDate) + 1, @paysheetPeriodName,
+            1, '', @workingDayNumber, @paysheetPeriodName,
             @userId, GETDATE(), 0, 0, 8
         )
     END

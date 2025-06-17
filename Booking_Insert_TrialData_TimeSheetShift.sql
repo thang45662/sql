@@ -112,10 +112,4 @@ BEGIN
 		SET @workingDaysPrev2 = @prevMonthDays
 	END
 	
-	-- ✅ THÊM: Debug log để kiểm tra
-	PRINT 'useNewTimeSheet: ' + CAST(@useNewTimeSheet AS VARCHAR(10))
-	PRINT 'workingDays1: ' + CAST(@workingDays1 AS VARCHAR(10))
-	PRINT 'workingDays2: ' + CAST(@workingDays2 AS VARCHAR(10))
-	PRINT 'workingDaysPrev1: ' + CAST(@workingDaysPrev1 AS VARCHAR(10))
-	PRINT 'workingDaysPrev2: ' + CAST(@workingDaysPrev2 AS VARCHAR(10))
 END

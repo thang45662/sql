@@ -32,7 +32,7 @@ BEGIN
     DECLARE @paysheetPeriodNamePrev NVARCHAR(100);
     SET @paysheetPeriodNamePrev = CONVERT(VARCHAR(10), @firstDayPrevMonth, 103) + ' - ' + CONVERT(VARCHAR(10), @lastDayPrevMonth, 103);
     SET @paysheetIdPrev = NEXT VALUE FOR PaysheetSeq
-    
+
     IF (@language = N'en-US')
     BEGIN
         INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
@@ -47,20 +47,43 @@ BEGIN
      ------------------------------------------
     -- 2. Tạo bảng lương tháng hiện tại
     ------------------------------------------
-	DECLARE @paysheetPeriodName VARCHAR(50)
-	DECLARE @endDate DATETIME
-	SET @endDate = DATEADD(DAY, - 1, DATEADD(MONTH, 1, @startDate))
-	SET @paysheetPeriodName = CONVERT(VARCHAR, @startDate, 103) + ' - ' + CONVERT(VARCHAR, @endDate, 103) 
+	    ------------------------------------------
+    -- 2. Tạo bảng lương tháng hiện tại (từ ngày hiện tại)
+    ------------------------------------------
+	DECLARE @currentStartDate DATE = CAST(GETDATE() AS DATE)
+	DECLARE @endDate DATETIME = EOMONTH(@currentStartDate)
+	DECLARE @paysheetPeriodName VARCHAR(100) = CONVERT(VARCHAR, @currentStartDate, 103) + ' - ' + CONVERT(VARCHAR, @endDate, 103)
 	SET @paysheetId = NEXT VALUE FOR PaysheetSeq
 
     IF (@language = N'en-US')
     BEGIN
-        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
-	    VALUES (@paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(), N'General Salary Table ' + @paysheetPeriodName, 1, @startDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @startDate, @endDate) + 1, @paysheetPeriodName, @userId, GETDATE(), 0, 0, 8)
+        INSERT INTO Paysheet (
+            Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name],
+            SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber,
+            PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay
+        )
+	    VALUES (
+            @paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(),
+            N'General Salary Table ' + @paysheetPeriodName,
+            1, @currentStartDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2),
+            1, '', DATEDIFF(DAY, @currentStartDate, @endDate) + 1, @paysheetPeriodName,
+            @userId, GETDATE(), 0, 0, 8
+        )
     END
     ELSE
     BEGIN
-        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
-	    VALUES (@paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(), N'Bảng lương ' + @paysheetPeriodName, 1, @startDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @startDate, @endDate) + 1, @paysheetPeriodName, @userId, GETDATE(), 0, 0, 8)
+        INSERT INTO Paysheet (
+            Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name],
+            SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber,
+            PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay
+        )
+	    VALUES (
+            @paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(),
+            N'Bảng lương ' + @paysheetPeriodName,
+            1, @currentStartDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2),
+            1, '', DATEDIFF(DAY, @currentStartDate, @endDate) + 1, @paysheetPeriodName,
+            @userId, GETDATE(), 0, 0, 8
+        )
     END
+
 END

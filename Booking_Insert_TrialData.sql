@@ -34,7 +34,9 @@ BEGIN
 	DECLARE @paysheetId BIGINT
 	DECLARE @payslipId1 BIGINT
 	DECLARE @payslipId2 BIGINT
-	
+	DECLARE @prevTimeSheetId1 BIGINT
+	DECLARE @prevTimeSheetId2 BIGINT
+	DECLARE @paysheetIdPrev BIGINT
 	-- Tạo ca làm việc
 	EXEC [pr_Booking_Insert_TrialData_Shifts] @tenantId, @branchId, @userIdAdmin, @language, @shiftId1 OUTPUT, @shiftId2 OUTPUT
 	
@@ -71,18 +73,18 @@ BEGIN
 
 	DECLARE @startDate DATETIME
 	DECLARE @endDate DATETIME  
-	SET @startDate = (SELECT DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()) - 1, 0))
+	SET @startDate = DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)
 	SET @endDate = (SELECT CAST(CONVERT(CHAR(8), GETDATE() - 1, 112) + ' 23:59:59.00' AS datetime))
 	
-	EXEC [pr_Booking_Insert_TrialData_TimeSheet] @tenantId,	@branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @useNewTimeSheet, @monday, @sunday, @timeSheetId1 OUTPUT, @timeSheetId2 OUTPUT
-	EXEC [pr_Booking_Insert_TrialData_TimeSheetShift] @shiftId1 , @shiftId2, @timeSheetId1, @timeSheetId2, @useNewTimeSheet
-	
+	EXEC [pr_Booking_Insert_TrialData_TimeSheet] @tenantId,	@branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @useNewTimeSheet, @monday, @sunday, @timeSheetId1 OUTPUT, @timeSheetId2 OUTPUT, @prevTimeSheetId1 OUTPUT, @prevTimeSheetId2 OUTPUT
+
+	EXEC [pr_Booking_Insert_TrialData_TimeSheetShift] @shiftId1 , @shiftId2, @timeSheetId1, @timeSheetId2, @prevTimeSheetId1, @prevTimeSheetId2, @useNewTimeSheet
+
 	-- tạo chấm công
 	EXEC [pr_Booking_Insert_TrialData_Clocking] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @shiftId1, @shiftId2, @timeSheetId1, @timeSheetId2, @useNewTimeSheet, @monday, @sunday
 
 	-- tạo bảng lương
-	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language,@paysheetId OUTPUT
-
+	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language,@paysheetId OUTPUT, @paysheetIdPrev OUTPUT
 
 	-- tạo phiếu lương
 	EXEC [pr_Booking_Insert_TrialData_Payslip] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @paysheetId, @payslipId1 OUTPUT, @payslipId2 OUTPUT

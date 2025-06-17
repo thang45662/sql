@@ -32,6 +32,7 @@ BEGIN
     DECLARE @paysheetPeriodNamePrev NVARCHAR(100);
     SET @paysheetPeriodNamePrev = CONVERT(VARCHAR(10), @firstDayPrevMonth, 103) + ' - ' + CONVERT(VARCHAR(10), @lastDayPrevMonth, 103);
     SET @paysheetIdPrev = NEXT VALUE FOR PaysheetSeq
+    
     IF (@language = N'en-US')
     BEGIN
         INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)

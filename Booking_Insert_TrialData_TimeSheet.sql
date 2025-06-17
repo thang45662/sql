@@ -18,10 +18,37 @@ ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_TimeSheet]
 	@monday				DATETIME,		-- Thứ 2 của tuần hiện tại
 	@sunday				DATETIME,		-- Chủ nhật của tuần hiện tại
     @timeSheetId1		BIGINT OUTPUT,
-    @timeSheetId2		BIGINT OUTPUT
+    @timeSheetId2		BIGINT OUTPUT,
+
+	-- Output: TimeSheet ID tháng trước
+    @prevTimeSheetId1	BIGINT OUTPUT,
+    @prevTimeSheetId2	BIGINT OUTPUT
 )
 AS
 BEGIN
+	---TẠO LỊCH THÁNG TRƯỚC ----
+	 DECLARE @firstDayPrevMonth DATE, @lastDayPrevMonth DATE;
+    IF MONTH(@startDate) = 1
+        SET @firstDayPrevMonth = DATEFROMPARTS(YEAR(@startDate) - 1, 12, 1);
+    ELSE
+        SET @firstDayPrevMonth = DATEFROMPARTS(YEAR(@startDate), MONTH(@startDate) - 1, 1);
+
+    SET @lastDayPrevMonth = EOMONTH(@startDate, -1);
+	SET @prevTimeSheetId1 = NEXT VALUE FOR TimeSheetSeq
+	INSERT INTO TimeSheet (Id, EmployeeId, StartDate, EndDate, IsRepeat, RepeatType, RepeatEachDay,BranchId, TenantId, CreatedBy, CreatedDate, IsDeleted, TimeSheetStatus,
+						   SaveOnDaysOffOfBranch, SaveOnHoliday, AutoGenerateClockingStatus)
+	VALUES (@prevTimeSheetId1, @employeeId1, @firstDayPrevMonth, @lastDayPrevMonth, 1, 2, 1,
+			@branchId, @tenantId, @userId, GETDATE(), 0, 1, 0, 0, 0)
+
+	-- ==== Tạo TimeSheet cho nhân viên 2 - tháng trước ====
+	SET @prevTimeSheetId2 = NEXT VALUE FOR TimeSheetSeq
+	INSERT INTO TimeSheet (Id, EmployeeId, StartDate, EndDate, IsRepeat, RepeatType, RepeatEachDay,
+						   BranchId, TenantId, CreatedBy, CreatedDate, IsDeleted, TimeSheetStatus,
+						   SaveOnDaysOffOfBranch, SaveOnHoliday, AutoGenerateClockingStatus)
+	VALUES (@prevTimeSheetId2, @employeeId2, @firstDayPrevMonth, @lastDayPrevMonth, 1, 2, 1,
+			@branchId, @tenantId, @userId, GETDATE(), 0, 1, 0, 0, 0)
+
+	---TẠO LỊCH THÁNG HIỆN TẠI ----
 	DECLARE @timeSheetStartDate DATETIME
 	DECLARE @timeSheetEndDate DATETIME
 	SET @timeSheetStartDate = (SELECT case when @useNewTimeSheet = 1 then @monday else @startDate end)

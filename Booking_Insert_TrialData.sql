@@ -1,9 +1,7 @@
+-- =====================================================
+-- 1. PROCEDURE CHÍNH - ĐỒNG BỘ HOÀN TOÀN
+-- =====================================================
 USE [KV_TimeSheet_Booking_Dev2]
-GO
-/****** Object:  StoredProcedure [dbo].[pr_Booking_Insert_TrialData]    Script Date: 6/13/2025 10:48:22 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData]
 (
@@ -13,7 +11,7 @@ ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData]
 	@userId1			BIGINT,			-- ID tài khoản nhân viên 1
 	@userId2			BIGINT,			-- ID tài khoản nhân viên 2
 	@commissionId		BIGINT,			-- ID bảng hoa hồng
-	@useNewTimeSheet	BIT,				-- Gian hàng dùng Lịch làm việc 1.0/2.0
+	@useNewTimeSheet	BIT,			-- Gian hàng dùng Lịch làm việc 1.0/2.0
 	@language			NVARCHAR(50)= N'vi-VN'	-- Ngôn ngữ
 )
 AS
@@ -40,22 +38,20 @@ BEGIN
 	DECLARE @payslipIdPrev1 BIGINT
 	DECLARE @payslipIdPrev2 BIGINT
 	
+	-- ✅ THÊM CÁC BIẾN SỐ NGÀY CÔNG
+	DECLARE @workingDays1 INT			-- Số ngày công tháng hiện tại nhân viên 1
+	DECLARE @workingDays2 INT			-- Số ngày công tháng hiện tại nhân viên 2
+	DECLARE @workingDaysPrev1 INT		-- Số ngày công tháng trước nhân viên 1
+	DECLARE @workingDaysPrev2 INT		-- Số ngày công tháng trước nhân viên 2
+	
 	-- Tạo ca làm việc
 	EXEC [pr_Booking_Insert_TrialData_Shifts] @tenantId, @branchId, @userIdAdmin, @language, @shiftId1 OUTPUT, @shiftId2 OUTPUT
 	
 	-- Tạo nhân viên
 	EXEC [pr_Booking_Insert_TrialData_Employees] @tenantId, @branchId, @userIdAdmin, @userId1, @userId2, @employeeId1 OUTPUT, @employeeId2 OUTPUT, @language
 
-	-- Tạo bảng hoa hồng
-
 	-- tạo phụ cấp
 	EXEC [pr_Booking_Insert_TrialData_Allowance] @tenantId, @userIdAdmin, @language, @allowanceId OUTPUT
-
-	-- tạo phòng ban 
-	--EXEC [pr_Booking_Insert_TrialData_Department] @tenantId, @userIdAdmin
-
-	-- tạo chức danh
-	--EXEC [pr_Booking_Insert_TrialData_JobTitles] @tenantId, @userIdAdmin
 
 	-- tạo giảm trừ
 	EXEC [pr_Booking_Insert_TrialData_Deduction] @tenantId, @userIdAdmin, @language, @deductionId OUTPUT
@@ -79,26 +75,33 @@ BEGIN
 	SET @startDate = DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)
 	SET @endDate = (SELECT CAST(CONVERT(CHAR(8), GETDATE() - 1, 112) + ' 23:59:59.00' AS datetime))
 	
+	-- ✅ Tạo TimeSheet đồng bộ
 	EXEC [pr_Booking_Insert_TrialData_TimeSheet] @tenantId,	@branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @useNewTimeSheet, @monday, @sunday, @timeSheetId1 OUTPUT, @timeSheetId2 OUTPUT, @prevTimeSheetId1 OUTPUT, @prevTimeSheetId2 OUTPUT
 
-	EXEC [pr_Booking_Insert_TrialData_TimeSheetShift] @shiftId1 , @shiftId2, @timeSheetId1, @timeSheetId2, @prevTimeSheetId1, @prevTimeSheetId2, @useNewTimeSheet
+	-- ✅ Tạo TimeSheetShift và lấy số ngày công
+	EXEC [pr_Booking_Insert_TrialData_TimeSheetShift] 
+		@shiftId1, @shiftId2, @timeSheetId1, @timeSheetId2, @prevTimeSheetId1, @prevTimeSheetId2, @useNewTimeSheet,
+		@workingDays1 OUTPUT, @workingDays2 OUTPUT, @workingDaysPrev1 OUTPUT, @workingDaysPrev2 OUTPUT
 
 	-- tạo chấm công
 	EXEC [pr_Booking_Insert_TrialData_Clocking] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @startDate, @endDate, @shiftId1, @shiftId2, @timeSheetId1, @timeSheetId2, @useNewTimeSheet, @monday, @sunday
 
-	-- tạo bảng lương
-	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language,@paysheetId OUTPUT, @paysheetIdPrev OUTPUT
+	-- ✅ tạo bảng lương đồng bộ với TimeSheet
+	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language, @paysheetId OUTPUT, @paysheetIdPrev OUTPUT
 
-	-- tạo phiếu lương
-	EXEC [pr_Booking_Insert_TrialData_Payslip] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @paysheetId, @paysheetIdPrev,@payslipId1 OUTPUT, @payslipId2 OUTPUT, @payslipIdPrev1 OUTPUT, @payslipIdPrev2 OUTPUT
+	-- ✅ tạo phiếu lương với số ngày công chính xác
+	EXEC [pr_Booking_Insert_TrialData_Payslip] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @paysheetId, @paysheetIdPrev, @workingDays1, @workingDays2, @workingDaysPrev1, @workingDaysPrev2, @payslipId1 OUTPUT, @payslipId2 OUTPUT, @payslipIdPrev1 OUTPUT, @payslipIdPrev2 OUTPUT
 
-	--
+	-- tạo PayslipClocking
 	EXEC [pr_Booking_Insert_TrialData_PayslipClocking] @tenantId, @userIdAdmin, @employeeId1, @employeeId2, @payslipId1, @payslipId2
 
-	-- tạo chi tiết phiếu lương
-	EXEC [pr_Booking_Insert_TrialData_PayslipDetail] @tenantId, @userIdAdmin, @employeeId1, @employeeId2, @payslipId1, @payslipId2, @payslipIdPrev1, @payslipIdPrev2,@allowanceId, @deductionId
+	-- ✅ tạo chi tiết phiếu lương đồng bộ hoàn toàn
+	EXEC [pr_Booking_Insert_TrialData_PayslipDetail] 
+		@tenantId, @userIdAdmin, @employeeId1, @employeeId2, 
+		@payslipId1, @payslipId2, @payslipIdPrev1, @payslipIdPrev2,
+		@allowanceId, @deductionId, 
+		@workingDays1, @workingDays2, @workingDaysPrev1, @workingDaysPrev2,
+		@shiftId1, @shiftId2
 
 	SELECT * FROM Employee WHERE TenantId = @tenantId AND IsDeleted = 0 AND UserId != @userIdAdmin
-
-	
 END

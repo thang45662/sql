@@ -12,40 +12,41 @@ ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_Paysheet]
 	@userId	BIGINT,				-- ID tài khoản admin
 	@startDate	DATETIME,		-- Ngày bắt đầu
     @language	    NVARCHAR(50),    -- Ngôn ngữ
-    @paysheetId BIGINT OUTPUT,
-    @paysheetIdPrev BIGINT OUTPUT  -- ID bảng lương tháng trước
+    @paysheetId     BIGINT OUTPUT,  -- ID bảng lương hiện tại
+    @paysheetIdPrev BIGINT OUTPUT,  -- ID bảng lương tháng trước
 )
 AS
 BEGIN
- ------------------------------------------
-    -- 1. Tạo bảng lương tháng trước
+    SET NOCOUNT ON;
     ------------------------------------------
-
+    -- 1. Tính ngày đầu và cuối tháng trước
+    ------------------------------------------
+    -- 2. Tạo bảng lương tháng trước
+    ------------------------------------------
     DECLARE @firstDayPrevMonth DATE, @lastDayPrevMonth DATE;
     IF MONTH(@startDate) = 1
         SET @firstDayPrevMonth = DATEFROMPARTS(YEAR(@startDate) - 1, 12, 1);
     ELSE
-    SET @firstDayPrevMonth = DATEFROMPARTS(YEAR(@startDate), MONTH(@startDate) - 1, 1);
+        SET @firstDayPrevMonth = DATEFROMPARTS(YEAR(@startDate), MONTH(@startDate) - 1, 1);
 
     SET @lastDayPrevMonth = EOMONTH(@startDate, -1);
 
     DECLARE @paysheetPeriodNamePrev NVARCHAR(100);
     SET @paysheetPeriodNamePrev = CONVERT(VARCHAR(10), @firstDayPrevMonth, 103) + ' - ' + CONVERT(VARCHAR(10), @lastDayPrevMonth, 103);
-    SET @paysheetIdPrev = NEXT VALUE FOR PaysheetSeq
+    SET @paysheetIdPrev = NEXT VALUE FOR PaysheetSeqPrev
+
     IF (@language = N'en-US')
     BEGIN
-        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
-	    VALUES (@paysheetIdPrev, 'BL000001', @tenantId, @branchId, 0, @userId, GETDATE(), N'General Salary Table ' + @paysheetPeriodNamePrev, 1, @startDate, CAST(CONVERT(char(8), @lastDayPrevMonth, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @firstDayPrevMonth, @lastDayPrevMonth) + 1, @paysheetPeriodNamePrev, @userId, GETDATE(), 0, 0, 8)
+        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, paysheetPeriodNamePrev, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
+	    VALUES (@paysheetIdPrev, 'BL000001', @tenantId, @branchId, 0, @userId, GETDATE(), N'General Salary Table ' + @paysheetPeriodNamePrev, 1, @startDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @startDate, @endDate) + 1, @paysheetPeriodNamePrev, @userId, GETDATE(), 0, 0, 8)
     END
     ELSE
     BEGIN
-        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
-	    VALUES (@paysheetIdPrev, 'BL000001', @tenantId, @branchId, 0, @userId, GETDATE(), N'Bảng lương ' + @paysheetPeriodNamePrev, 1, @firstDayPrevMonth, CAST(CONVERT(char(8), @lastDayPrevMonth, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @firstDayPrevMonth, @lastDayPrevMonth) + 1, @paysheetPeriodNamePrev, @userId, GETDATE(), 0, 0, 8)
+        INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, paysheetPeriodNamePrev, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
+	    VALUES (@paysheetIdPrev, 'BL000001', @tenantId, @branchId, 0, @userId, GETDATE(), N'Bảng lương ' + @paysheetPeriodNamePrev, 1, @startDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @startDate, @endDate) + 1, @paysheetPeriodNamePrev, @userId, GETDATE(), 0, 0, 8)
     END
 
-     ------------------------------------------
-    -- 2. Tạo bảng lương tháng hiện tại
-    ------------------------------------------
+    -- bảng tháng hiện tại
 	DECLARE @paysheetPeriodName VARCHAR(50)
 	DECLARE @endDate DATETIME
 	SET @endDate = DATEADD(DAY, - 1, DATEADD(MONTH, 1, @startDate))
@@ -62,4 +63,5 @@ BEGIN
         INSERT INTO Paysheet (Id, Code, TenantId, BranchId, IsDeleted, CreatedBy, CreatedDate, [Name], SalaryPeriod, StartTime, EndTime, PaysheetStatus, Note, WorkingDayNumber, PaysheetPeriodName, CreatorBy, PaysheetCreatedDate, [Version], IsDraft, TimeOfStandardWorkingDay)
 	    VALUES (@paysheetId, 'BL000002', @tenantId, @branchId, 0, @userId, GETDATE(), N'Bảng lương ' + @paysheetPeriodName, 1, @startDate, CAST(CONVERT(char(8), @endDate, 112) + ' 23:59:59.000' AS datetime2), 1, '', DATEDIFF(DAY, @startDate, @endDate) + 1, @paysheetPeriodName, @userId, GETDATE(), 0, 0, 8)
     END
+
 END

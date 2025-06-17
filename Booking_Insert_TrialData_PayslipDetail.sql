@@ -1,6 +1,6 @@
 USE [KV_TimeSheet_Booking_Dev2]
 GO
-/****** Object:  StoredProcedure [dbo].[pr_Booking_Insert_TrialData_PayslipDetail]    Script Date: 6/16/2025 9:47:47 AM ******/
+/****** Object:  StoredProcedure [dbo].[pr_Booking_Insert_TrialData_PayslipDetail]    Script Date: 6/17/2025 1:25:54 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,11 +14,63 @@ ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_PayslipDetail]
 	@employeeId2 BIGINT,		-- ID nhân viên 2
     @payslipId1 BIGINT,			-- ID phiếu lương 1
     @payslipId2 BIGINT,			-- ID phiếu lương 2
+	@payslipId1Prev BIGINT,			-- ID phiếu lương tháng truoc 1
+    @payslipId2Prev BIGINT,			-- ID phiếu lương tháng truoc 2
 	@allowanceId BIGINT,
 	@deductionId BIGINT
 )
 AS
 BEGIN
+
+	--- chi tiết phiếu lương tháng trước 1
+	--- chi tiết phiếu lương tháng trước 2
+	DECLARE @numberWorkingDayPrev INT
+	SET @numberWorkingDayPrev = DAY(EOMONTH(DATEADD(MONTH, -1, GETDATE()))) 
+
+	-- Chi tiết phiếu lương 1
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId1Prev, RuleType, RuleValue, '{"Allowances":[{"AllowanceId":' +  CAST(@allowanceId AS VARCHAR(50)) + ',"Value":50000.0,"ValueRatio":null,"Name":null,"CalculatedValue":50000.0,"CalculatedValueRatio":null,"NumberWorkingDay":' +  CAST(@numberWorkingDayPrev AS VARCHAR(2)) + ',"SelectedItem":null,"Type":1,"StandardWorkingDayNumber":' +  CAST(@numberWorkingDayPrev AS VARCHAR(2)) + ',"IsChecked":true}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'AllowanceRule'
+	ORDER BY Id DESC
+
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId1Prev, RuleType, RuleValue, '{"Deductions":[{"DeductionId":' +  CAST(@deductionId AS VARCHAR(50)) + ',"Value":30000.0,"ValueRatio":null,"Name":null,"CalculatedValue":30000.0,"CalculatedValueRatio":null,"SelectedItem":null,"Type":1}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'DeductionRule'
+
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId1Prev, RuleType, RuleValue, '{"Type":1,"TotalRevenue":0.0,"TotalCounselorRevenue":0.0,"TotalGrossProfit":0.0,"CommissionSalary":null,"CommissionSalaryOrigin":0.0,"CommissionParams":[{"CommissionType":1,"CommissionLevel":0.0,"Value":null,"ValueRatio":null,"ValueOrigin":null,"ValueRatioOrigin":null,"IsDirty":null,"ProductRevenues":[],"CommissionTable":null,"CommissionSetting":0},{"CommissionType":2,"CommissionLevel":0.0,"Value":null,"ValueRatio":null,"ValueOrigin":null,"ValueRatioOrigin":null,"IsDirty":null,"ProductRevenues":[],"CommissionTable":null,"CommissionSetting":0}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'CommissionSalaryRuleV2'
+	ORDER BY Id DESC
+
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	VALUES        (@payslipId1Prev, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":10000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":10000000.0,"CalculatedSalary":10000000.0,"Default":31.0,"CalculatedDefault":24.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
+
+	-- Chi tiết phiếu lương 2
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId2Prev, RuleType, RuleValue, '{"Allowances":[{"AllowanceId":' +  CAST(@allowanceId AS VARCHAR(50)) + ',"Value":50000.0,"ValueRatio":null,"Name":null,"CalculatedValue":50000.0,"CalculatedValueRatio":null,"NumberWorkingDay":' +  CAST(@numberWorkingDayPrev AS VARCHAR(2)) + ',"SelectedItem":null,"Type":1,"StandardWorkingDayNumber":' +  CAST(@numberWorkingDayPrev AS VARCHAR(2)) + ',"IsChecked":true}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'AllowanceRule'
+	ORDER BY Id DESC
+	
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId2Prev, RuleType, RuleValue, '{"Deductions":[{"DeductionId":' +  CAST(@deductionId AS VARCHAR(50)) + ',"Value":30000.0,"ValueRatio":null,"Name":null,"CalculatedValue":30000.0,"CalculatedValueRatio":null,"SelectedItem":null,"Type":1}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'DeductionRule'
+	ORDER BY Id DESC
+	
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	SELECT TOP 1 @payslipId2Prev, RuleType, RuleValue, '{"Type":1,"TotalRevenue":0.0,"TotalCounselorRevenue":0.0,"TotalGrossProfit":0.0,"CommissionSalary":null,"CommissionSalaryOrigin":0.0,"CommissionParams":[{"CommissionType":1,"CommissionLevel":0.0,"Value":null,"ValueRatio":null,"ValueOrigin":null,"ValueRatioOrigin":null,"IsDirty":null,"ProductRevenues":[],"CommissionTable":null,"CommissionSetting":0},{"CommissionType":2,"CommissionLevel":0.0,"Value":null,"ValueRatio":null,"ValueOrigin":null,"ValueRatioOrigin":null,"IsDirty":null,"ProductRevenues":[],"CommissionTable":null,"CommissionSetting":0}]}', @tenantId
+	FROM PayRateTemplateDetail
+	WHERE TenantId = @tenantId AND RuleType = 'CommissionSalaryRuleV2'
+	ORDER BY Id DESC
+	
+	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
+	VALUES        (@payslipId2Prev, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":7000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":7000000.0,"CalculatedSalary":7000000.0,"Default":31.0,"CalculatedDefault":12.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
+
+	---tạo chi tiết tháng lương hiện tại
 	DECLARE @numberWorkingDay INT
 	SET @numberWorkingDay = DAY(EOMONTH(DATEADD(MONTH, -1, GETDATE()))) 
 
@@ -41,7 +93,7 @@ BEGIN
 	ORDER BY Id DESC
 
 	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
-	VALUES        (@payslipId1, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":10000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":10000000.0,"CalculatedSalary":10000000.0,"Default":31.0,"CalculatedDefault":31.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
+	VALUES        (@payslipId1, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":10000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":10000000.0,"CalculatedSalary":10000000.0,"Default":31.0,"CalculatedDefault":6.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
 
 	-- Chi tiết phiếu lương 2
 	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
@@ -63,5 +115,5 @@ BEGIN
 	ORDER BY Id DESC
 	
 	INSERT INTO PayslipDetail (PayslipId, RuleType, RuleValue, RuleParam, TenantId)
-	VALUES        (@payslipId2, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":7000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":7000000.0,"CalculatedSalary":7000000.0,"Default":31.0,"CalculatedDefault":31.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
+	VALUES        (@payslipId2, 'MainSalaryRule', '{"Type":4,"MainSalaryValueDetails":[{"ShiftId":0,"Default":7000000.0,"MainSalaryHolidays":[],"Rank":0}]}', '{"MainSalaryShifts":[{"ShiftId":0,"Salary":7000000.0,"CalculatedSalary":7000000.0,"Default":31.0,"CalculatedDefault":3.0,"MainSalaryByShiftParamDetails":null,"Type":4}]}', @tenantId)
 END

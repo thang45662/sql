@@ -37,6 +37,9 @@ BEGIN
 	DECLARE @prevTimeSheetId1 BIGINT
 	DECLARE @prevTimeSheetId2 BIGINT
 	DECLARE @paysheetIdPrev BIGINT
+	DECLARE @payslipIdPrev1 BIGINT
+	DECLARE @payslipIdPrev2 BIGINT
+	
 	-- Tạo ca làm việc
 	EXEC [pr_Booking_Insert_TrialData_Shifts] @tenantId, @branchId, @userIdAdmin, @language, @shiftId1 OUTPUT, @shiftId2 OUTPUT
 	
@@ -87,7 +90,7 @@ BEGIN
 	EXEC [pr_Booking_Insert_TrialData_Paysheet] @tenantId,	@branchId, @userIdAdmin, @startDate, @language,@paysheetId OUTPUT, @paysheetIdPrev OUTPUT
 
 	-- tạo phiếu lương
-	EXEC [pr_Booking_Insert_TrialData_Payslip] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @paysheetId, @payslipId1 OUTPUT, @payslipId2 OUTPUT
+	EXEC [pr_Booking_Insert_TrialData_Payslip] @tenantId, @branchId, @userIdAdmin, @employeeId1, @employeeId2, @paysheetId, @paysheetIdPrev,@payslipId1 OUTPUT, @payslipId2 OUTPUT, @payslipIdPrev1 OUTPUT, @payslipIdPrev2 OUTPUT
 
 	--
 	EXEC [pr_Booking_Insert_TrialData_PayslipClocking] @tenantId, @userIdAdmin, @employeeId1, @employeeId2, @payslipId1, @payslipId2

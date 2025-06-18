@@ -1,0 +1,12 @@
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+iwr -useb get.scoop.sh | iex
+
+
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;D:\Dev\nodejs", "User")
+
+
+Set-Alias node18 "D:\Dev\nodejs18\node.exe"
+Set-Alias node20 "D:\Dev\nodejs20\node.exe"
+
+
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;D:\Tools\Maven\bin", "User")

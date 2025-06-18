@@ -13,3 +13,14 @@ Set-Alias node20 "D:\Dev\nodejs20\node.exe"
 
 --fix error system
 $env:Path = "C:\Windows\System32;" + $env:Path
+
+
+
+# Tạo thư mục nơi bạn muốn cài Scoop
+New-Item -ItemType Directory -Path "D:\Dev\Scoop" -Force
+
+# Gán biến môi trường tạm thời cho phiên PowerShell hiện tại
+$env:SCOOP = "D:\Dev\Scoop"
+
+# Tải & cài Scoop vào ổ D
+iwr -useb get.scoop.sh | iex

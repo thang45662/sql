@@ -10,3 +10,6 @@ Set-Alias node20 "D:\Dev\nodejs20\node.exe"
 
 
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;D:\Tools\Maven\bin", "User")
+
+--fix error system
+$env:Path = "C:\Windows\System32;" + $env:Path

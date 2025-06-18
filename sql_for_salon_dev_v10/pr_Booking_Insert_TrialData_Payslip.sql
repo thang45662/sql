@@ -1,13 +1,3 @@
-USE [KV_TimeSheet_Booking_Dev2]
-GO
-
-/****** Object:  StoredProcedure [dbo].[pr_Booking_Insert_TrialData_Payslip]    Script Date: 6/18/2025 10:20:57 AM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_Payslip]
 (
     @tenantId	INT,

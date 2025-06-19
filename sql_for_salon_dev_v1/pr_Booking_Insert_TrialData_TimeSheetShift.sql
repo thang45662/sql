@@ -1,6 +1,3 @@
--- ========================
--- File: pr_Booking_Insert_TrialData_TimeSheetShift.sql
--- ========================
 ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_TimeSheetShift]
 (
 	@shiftId1			VARCHAR(50),
@@ -19,7 +16,7 @@ AS
 BEGIN
 	DECLARE @repeatDaysOfWeek1 NVARCHAR(500)
 	DECLARE @repeatDaysOfWeek2 NVARCHAR(500)
-
+	
 	--Thiết lập RepeatDaysOfWeek chính xác
 	IF @useNewTimeSheet = 1
 	BEGIN
@@ -48,20 +45,20 @@ BEGIN
 		DECLARE @employeeId1 BIGINT = (SELECT EmployeeId FROM TimeSheet WHERE Id = @timeSheetId1)
 		DECLARE @employeeId2 BIGINT = (SELECT EmployeeId FROM TimeSheet WHERE Id = @timeSheetId2)
 		DECLARE @prevMonth DATETIME = DATEADD(MONTH, -1, GETDATE())
-
+		
 		-- Tạo cho tất cả TimeSheet tháng trước
 		INSERT INTO [TimeSheetShift] (TimeSheetId, ShiftIds, RepeatDaysOfWeek)
 		SELECT Id, @shiftId1, @repeatDaysOfWeek1
-		FROM TimeSheet
-		WHERE EmployeeId = @employeeId1
+		FROM TimeSheet 
+		WHERE EmployeeId = @employeeId1 
 		  AND MONTH(CreatedDate) = MONTH(@prevMonth)
 		  AND YEAR(CreatedDate) = YEAR(@prevMonth)
 		  AND Id != @timeSheetId1
-
+		
 		INSERT INTO [TimeSheetShift] (TimeSheetId, ShiftIds, RepeatDaysOfWeek)
 		SELECT Id, @shiftId2, @repeatDaysOfWeek2
-		FROM TimeSheet
-		WHERE EmployeeId = @employeeId2
+		FROM TimeSheet 
+		WHERE EmployeeId = @employeeId2 
 		  AND MONTH(CreatedDate) = MONTH(@prevMonth)
 		  AND YEAR(CreatedDate) = YEAR(@prevMonth)
 		  AND Id != @timeSheetId2
@@ -82,34 +79,40 @@ BEGIN
 		-- TimeSheet 2.0: Dựa trên RepeatDaysOfWeek
 		DECLARE @weeklyDays1 INT
 		DECLARE @weeklyDays2 INT
-
+		
 		-- Đếm số ngày trong tuần từ RepeatDaysOfWeek
 		-- '1,2,3,4,5,6' = 6 ngày
 		-- '1,3,5' = 3 ngày
 		SET @weeklyDays1 = (LEN(@repeatDaysOfWeek1) - LEN(REPLACE(@repeatDaysOfWeek1, ',', '')) + 1)
 		SET @weeklyDays2 = (LEN(@repeatDaysOfWeek2) - LEN(REPLACE(@repeatDaysOfWeek2, ',', '')) + 1)
-
+		
 		-- Tháng hiện tại: 1 tuần
 		SET @workingDays1 = @weeklyDays1      -- 6 ngày
 		SET @workingDays2 = @weeklyDays2      -- 3 ngày
 
 		-- Tháng trước: 4 tuần
 		SET @workingDaysPrev1 = @weeklyDays1 * 4  -- 24 ngày
-		SET @workingDaysPrev2 = @weeklyDays2 * 4  -- 12 ngày
+		DECLARE @currentMonthPrevDays INT;
+
+		SET @currentMonthPrevDays = DAY(EOMONTH(GETDATE(), -1));
+		IF(@currentMonthPrevDays = 31)
+			SET @workingDaysPrev2 = @weeklyDays2 * 4 +1
+		ELSE
+			SET @workingDaysPrev2 = @weeklyDays2 * 4  -- 12 ngày
 	END
 	ELSE
 	BEGIN
 		-- TimeSheet 1.0: Dựa trên số ngày trong tháng
 		DECLARE @currentMonthDays INT = DAY(EOMONTH(GETDATE()))
 		DECLARE @prevMonthDays INT = DAY(EOMONTH(DATEADD(MONTH, -1, GETDATE())))
-
+		
 		-- Giả sử làm việc tất cả các ngày trong tháng
 		SET @workingDays1 = @currentMonthDays
 		SET @workingDays2 = @currentMonthDays
 		SET @workingDaysPrev1 = @prevMonthDays
 		SET @workingDaysPrev2 = @prevMonthDays
 	END
-
+	
 END
-
 GO
+

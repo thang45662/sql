@@ -1,6 +1,3 @@
--- ========================
--- File: pr_Booking_Insert_TrialData_Paysheet.sql
--- ========================
 ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_Paysheet]
 (
     @tenantId	INT,					-- ID gian hàng
@@ -43,12 +40,12 @@ BEGIN
 	------------------------------------------
     -- 2. Tạo bảng lương tháng hiện tại (từ ngày hiện tại)
     ------------------------------------------
-	DECLARE @currentStartDate DATE = CAST(GETDATE() AS DATE)
-	DECLARE @endDate DATETIME = EOMONTH(@currentStartDate)
-    DECLARE @workingDayNumber INT
-    SET @workingDayNumber = DAY(EOMONTH(GETDATE()))
-	DECLARE @paysheetPeriodName VARCHAR(100) = CONVERT(VARCHAR, @currentStartDate, 103) + ' - ' + CONVERT(VARCHAR, @endDate, 103)
-	SET @paysheetId = NEXT VALUE FOR PaysheetSeq
+    DECLARE @currentStartDate DATE = DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
+    DECLARE @endDate DATETIME = EOMONTH(@currentStartDate)
+    DECLARE @workingDayNumber INT = DAY(@endDate)
+    DECLARE @paysheetPeriodName VARCHAR(100) = CONVERT(VARCHAR, @currentStartDate, 103) + ' - ' + CONVERT(VARCHAR, @endDate, 103)
+    SET @paysheetId = NEXT VALUE FOR PaysheetSeq
+
 
     IF (@language = N'en-US')
     BEGIN
@@ -82,5 +79,5 @@ BEGIN
     END
 
 END
-
 GO
+

@@ -38,7 +38,7 @@ BEGIN
         -- Vietnamese records
         SET @employeeId1 = NEXT VALUE FOR EmployeeSeq;
         INSERT INTO Employee (Id, Code, [Name], IsActive, UserId, TenantId, BranchId, CreatedBy, CreatedDate, IsDeleted,[MobilePhone])
-        VALUES (@employeeId1, 'NV000002', N'Hoàng Long 22', 1, @taikhoan1, @tenantId, @branchId, @userId, GETDATE(), 0,'0326895656');
+        VALUES (@employeeId1, 'NV000002', N'Hoàng Long', 1, @taikhoan1, @tenantId, @branchId, @userId, GETDATE(), 0,'0326895656');
 
         SET @employeeBranch = NEXT VALUE FOR EmployeeBranchSeq;
         INSERT INTO EmployeeBranch (Id, TenantId, BranchId, EmployeeId)

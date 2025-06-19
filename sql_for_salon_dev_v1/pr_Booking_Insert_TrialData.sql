@@ -47,19 +47,18 @@ BEGIN
 	-- Tạo nhân viên
 	EXEC [pr_Booking_Insert_TrialData_Employees] @tenantId, @branchId, @userIdAdmin, @userId1, @userId2, @employeeId1 OUTPUT, @employeeId2 OUTPUT, @language
 
+	--tách sang SampleData
 	-- tạo phụ cấp
-	EXEC [pr_Booking_Insert_TrialData_Allowance] @tenantId, @userIdAdmin, @language, @allowanceId OUTPUT
+	--EXEC [pr_Booking_Insert_TrialData_Allowance] @tenantId, @userIdAdmin, @language, @allowanceId OUTPUT
 
 	-- tạo giảm trừ
-	EXEC [pr_Booking_Insert_TrialData_Deduction] @tenantId, @userIdAdmin, @language, @deductionId OUTPUT
+	--EXEC [pr_Booking_Insert_TrialData_Deduction] @tenantId, @userIdAdmin, @language, @deductionId OUTPUT
 
 	-- tạo mẫu lương
-	EXEC [pr_Booking_Insert_TrialData_PayRateTemplate] @tenantId, @branchId, @userIdAdmin, @language, @payRateTemplateId OUTPUT
-	EXEC [pr_Booking_Insert_TrialData_PayRateTemplateDetail] @tenantId, @userIdAdmin, @payRateTemplateId, @commissionId, @allowanceId, @deductionId
+	--EXEC [pr_Booking_Insert_TrialData_PayRateTemplate] @tenantId, @branchId, @userIdAdmin, @language, @payRateTemplateId OUTPUT
+	--EXEC [pr_Booking_Insert_TrialData_PayRateTemplateDetail] @tenantId, @userIdAdmin, @payRateTemplateId, @commissionId, @allowanceId, @deductionId
 
-	-- tạo thiết lập lương
-	EXEC [pr_Booking_Insert_TrialData_PayRate]  @tenantId, @userIdAdmin, @payRateTemplateId, @employeeId1, @employeeId2, @payRateId1 OUTPUT, @payRateId2 OUTPUT
-	EXEC [pr_Booking_Insert_TrialData_PayRateDetail] @tenantId,	@commissionId, @allowanceId, @deductionId, @payRateId1, @payRateId2, @employeeId1, @employeeId2
+	---
 
 	-- tạo ca làm việc
 	DECLARE @monday DATETIME

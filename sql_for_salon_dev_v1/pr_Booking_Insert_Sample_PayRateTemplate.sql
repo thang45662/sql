@@ -1,4 +1,4 @@
-ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_PayRateTemplate]
+ALTER PROCEDURE [dbo].[pr_Booking_Insert_Sample_PayRateTemplate]
 (
     @tenantId	INT,		-- ID gian hàng
     @branchId	INT,		-- ID chi nhánh
@@ -8,11 +8,20 @@ ALTER PROCEDURE [dbo].[pr_Booking_Insert_TrialData_PayRateTemplate]
 )
 AS
 BEGIN
-		BEGIN
+	IF (@language = 'en-US')
+	BEGIN
+		SET @payRateTemplateId = NEXT VALUE FOR PayRateTemplateSeq
+
+		INSERT INTO PayRateTemplate (Id, TenantId, [Name], SalaryPeriod, BranchId, CreatedDate, CreatedBy, [Status])
+		VALUES        (@payRateTemplateId, @tenantId, N'Service staff - consultant', 1, @branchId, GETDATE(), @userId, 0)
+	END
+	ELSE
+	BEGIN
 		SET @payRateTemplateId = NEXT VALUE FOR PayRateTemplateSeq
 
 		INSERT INTO PayRateTemplate (Id, TenantId, [Name], SalaryPeriod, BranchId, CreatedDate, CreatedBy, [Status])
 		VALUES        (@payRateTemplateId, @tenantId, N'Nhân viên dịch vụ - tư vấn', 1, @branchId, GETDATE(), @userId, 0)
+	END
 END
 
 GO

@@ -1,0 +1,76 @@
+# KveMasterDb
+server = 'dc2d-employee-mssql-01.citigo.io'
+port = '1433'
+database = 'KiotVietMasterEmployeeDev'
+username = 'sa'
+password = 'mssql#C1t1g0@sa'
+
+# FnB_KiotVietTimeSheetDatabase
+server = 'dc2d-employee-mssql-01.citigo.io'
+port = '1433'
+database = 'FnbTimeSheetDev'
+username = 'sa'
+password = 'mssql#C1t1g0@sa'
+
+# FnB_KiotVietTimeSheetDatabase9
+server = 'dc2d-employee-mssql-01.citigo.io'
+port = '1433'
+database = 'FnbTimeSheetDev'
+username = 'sa'
+password = 'mssql#C1t1g0@sa'
+
+# Retail_KiotVietTimeSheetS1Database
+server = 'dc2d-retail-mssql-sharding-01.citigo.io'
+port = '6101'
+database = 'KiotVietTimeSheetS1'
+username = 'retail_app'
+password = 'LnqxffeJulNvQi6u'
+
+# Retail_KiotVietTimeSheetS2Database
+server = 'dc2d-retail-mssql-sharding-01.citigo.io'
+port = '6101'
+database = 'KiotVietTimeSheetS2'
+username = 'retail_app'
+password = 'LnqxffeJulNvQi6u'
+
+# BookingSpa_KiotVietTimeSheetDatabase
+server = '10.24.113.1'
+port = '1433'
+database = 'KV_TimeSheet_Booking_Dev'
+username = 'kiotvietdev'
+password = 'C1t1g000$6162'
+
+# BookingSpa_KiotVietTimeSheetDatabaseS1
+server = '10.24.113.1'
+port = '1433'
+database = 'KV_TimeSheet_Booking_Dev'
+username = 'kiotvietdev'
+password = 'C1t1g000$6162'
+
+# BookingSpa_KiotVietTimeSheetDatabaseS2
+server = '10.24.113.1'
+port = '1433'
+database = 'KV_TimeSheet_Booking_Dev2'
+username = 'kiotvietdev'
+password = 'C1t1g000$6162'
+
+# BookingKeivi_KiotVietTimeSheetKeiviDatabase
+server = 'dc2d-employee-mssql-01.citigo.io'
+port = '1433'
+database = 'KV_TimeSheet_Keivi_Dev'
+username = 'sa'
+password = 'mssql#C1t1g0@sa'
+
+# BookingHotel_KiotVietTimeSheetDatabase
+server = '10.24.113.1'
+port = '1433'
+database = 'KV_TimeSheet_Hotel_Dev'
+username = 'kiotvietdev'
+password = 'C1t1g000$6162'
+
+---- retail dev -- stag KiotVietTimeSheetS2
+server = '103.252.0.202'
+port = '6001'
+database = 'KiotVietTimeSheetS1'
+username = 'retail_app'
+password = 'LnqxffeJulNvQi6u'

@@ -3,11 +3,13 @@ import os
 from datetime import datetime
 
 # --- SQL Server Connection ---
-server = '10.24.113.1'
+# BookingSpa_KiotVietTimeSheetDatabaseS2
+server = '10.24.113.2'
 port = '1433'
-database = 'KV_TimeSheet_Booking_Dev2'
-username = 'kiotvietdev'
-password = 'C1t1g000$6162'
+database = 'KV_TimeSheet_Booking_Stg2'
+username = 'sa'
+password = 'mssql#C1t1g0@sa'
+
 conn_str = (
     f"DRIVER={{ODBC Driver 17 for SQL Server}};"
     f"SERVER={server},{port};"
@@ -20,7 +22,7 @@ conn_str = (
 EXPORT_OPTION = "ALTER"  # hoặc "CREATE"
 ##EXPORT_OPTION = "CREATE"
 # --- Output folder ---
-output_dir = f"exported_procedures_{database}_sprint58_EB-9400"
+output_dir = f"exported_procedures_{database}_salonStag"
 
 os.makedirs(output_dir, exist_ok=True)
 

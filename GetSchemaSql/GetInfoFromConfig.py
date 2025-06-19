@@ -1,16 +1,16 @@
 import json
 
 connection_strings = {
-    "KveMasterDb": "Server=dc2d-employee-mssql-01.citigo.io;Database=KiotVietMasterEmployeeDev;User=sa;Password=mssql#C1t1g0@sa;App=KveApi",
-    "FnB_KiotVietTimeSheetDatabase": "Server=dc2d-employee-mssql-01.citigo.io;Database=FnbTimeSheetDev;Persist security info=True;User Id=sa;Password=mssql#C1t1g0@sa;MultipleActiveResultSets=True;Max Pool Size=10000;App=KveApi",
-    "FnB_KiotVietTimeSheetDatabase9": "Server=dc2d-employee-mssql-01.citigo.io;Database=FnbTimeSheetDev;Persist security info=True;User id=sa;password=mssql#C1t1g0@sa;MultipleActiveResultSets=True;Max Pool Size=10000;App=KveApi",
-    "Retail_KiotVietTimeSheetS1Database": "Server=dc2d-retail-mssql-sharding-01.citigo.io,6101;Database=KiotVietTimeSheetS1;Persist security info=True;User id=retail_app;password=LnqxffeJulNvQi6u;MultipleActiveResultSets=True;Max Pool Size=10000;App=KveApi",
+    "KveMasterDb": "Server=dc2s-employee-mssql-01.citigo.io;Database=KiotVietMasterEmployeeStag;User=sa;Password=mssql#C1t1g0@sa;",
+    "FnB_KiotVietTimeSheetDatabase": "Server=dc2s-employee-mssql-01.citigo.io;Database=FnbTimeSheetStaging;Persist security info=True;User=sa;Password=mssql#C1t1g0@sa;MultipleActiveResultSets=True;Max Pool Size=10000;",
+    "FnB_KiotVietTimeSheetDatabase9": "Server=dc2s-employee-mssql-01.citigo.io;Database=FnbTimeSheetStaging;Persist security info=True;User=sa;Password=mssql#C1t1g0@sa;MultipleActiveResultSets=True;Max Pool Size=10000;",
+    "Retail_KiotVietTimeSheetS1Database": "Server=dc2d-retail-mssql-sharding-01.citigo.io,6101;Database=KiotVietTimeSheetS1;Persist security info=True;User id=retail_app;password=LnqxffeJulNvQi6u;MultipleActiveResultSets=True;Max Pool Size=10000;",
     "Retail_KiotVietTimeSheetS2Database": "Server=dc2d-retail-mssql-sharding-01.citigo.io,6101;Database=KiotVietTimeSheetS2;Persist security info=True;User id=retail_app;password=LnqxffeJulNvQi6u;MultipleActiveResultSets=True;Max Pool Size=10000;",
-    "BookingSpa_KiotVietTimeSheetDatabase": "Server=10.24.113.1;Database=KV_TimeSheet_Booking_Dev;User=kiotvietdev;Password=C1t1g000$6162;Max Pool Size=10000;App=KveApi;Encrypt=false",
-    "BookingSpa_KiotVietTimeSheetDatabaseS1": "Server=10.24.113.1;Database=KV_TimeSheet_Booking_Dev;User=kiotvietdev;Password=C1t1g000$6162;Max Pool Size=10000;App=KveApi;Encrypt=false",
-    "BookingSpa_KiotVietTimeSheetDatabaseS2": "Server=10.24.113.1;Database=KV_TimeSheet_Booking_Dev2;User=kiotvietdev;Password=C1t1g000$6162;Max Pool Size=10000;App=KveApi-Spa2;Min Pool Size=0",
-    "BookingKeivi_KiotVietTimeSheetKeiviDatabase": "Server=dc2d-employee-mssql-01.citigo.io;Database=KV_TimeSheet_Keivi_Dev;User=sa;Password=mssql#C1t1g0@sa;Max Pool Size=10000;App=KveApi-keivi;Min Pool Size=0",
-    "BookingHotel_KiotVietTimeSheetDatabase": "Server=10.24.113.1;Database=KV_TimeSheet_Hotel_Dev;User=kiotvietdev;Password=C1t1g000$6162;Max Pool Size=10000;App=KveApi;Encrypt=false"
+    "BookingSpa_KiotVietTimeSheetDatabase": "Server=10.24.113.2;Database=KV_TimeSheet_Booking_Stg;User=sa;Password=mssql#C1t1g0@sa;",
+    "BookingSpa_KiotVietTimeSheetDatabaseS1": "Server=10.24.113.2;Database=KV_TimeSheet_Booking_Stg;User=sa;Password=mssql#C1t1g0@sa;",
+    "BookingSpa_KiotVietTimeSheetDatabaseS2": "Server=10.24.113.2;Database=KV_TimeSheet_Booking_Stg2;User=sa;Password=mssql#C1t1g0@sa;",
+    "BookingHotel_KiotVietTimeSheetDatabase": "Server=10.24.113.2;Database=KV_TimeSheet_Hotel_Stg;User=sa;Password=mssql#C1t1g0@sa;",
+    "BookingKeivi_KiotVietTimeSheetKeiviDatabase": "Server=dc2s-employee-mssql-01.citigo.io;Database=KV_TimeSheet_Keivi_Staging;User=sa;Password=mssql#C1t1g0@sa;Max Pool Size=10000;App=KveApi-keivi;Min Pool Size=0"
 }
 
 

@@ -1,22 +1,22 @@
 {
     "KveMasterDb": {
-        "server": "dc2d-employee-mssql-01.citigo.io",
+        "server": "dc2s-employee-mssql-01.citigo.io",
         "port": "1433",
-        "database": "KiotVietMasterEmployeeDev",
+        "database": "KiotVietMasterEmployeeStag",
         "username": "sa",
         "password": "mssql#C1t1g0@sa"
     },
     "FnB_KiotVietTimeSheetDatabase": {
-        "server": "dc2d-employee-mssql-01.citigo.io",
+        "server": "dc2s-employee-mssql-01.citigo.io",
         "port": "1433",
-        "database": "FnbTimeSheetDev",
+        "database": "FnbTimeSheetStaging",
         "username": "sa",
         "password": "mssql#C1t1g0@sa"
     },
     "FnB_KiotVietTimeSheetDatabase9": {
-        "server": "dc2d-employee-mssql-01.citigo.io",
+        "server": "dc2s-employee-mssql-01.citigo.io",
         "port": "1433",
-        "database": "FnbTimeSheetDev",
+        "database": "FnbTimeSheetStaging",
         "username": "sa",
         "password": "mssql#C1t1g0@sa"
     },
@@ -35,38 +35,38 @@
         "password": "LnqxffeJulNvQi6u"
     },
     "BookingSpa_KiotVietTimeSheetDatabase": {
-        "server": "10.24.113.1",
+        "server": "10.24.113.2",
         "port": "1433",
-        "database": "KV_TimeSheet_Booking_Dev",
-        "username": "kiotvietdev",
-        "password": "C1t1g000$6162"
+        "database": "KV_TimeSheet_Booking_Stg",
+        "username": "sa",
+        "password": "mssql#C1t1g0@sa"
     },
     "BookingSpa_KiotVietTimeSheetDatabaseS1": {
-        "server": "10.24.113.1",
+        "server": "10.24.113.2",
         "port": "1433",
-        "database": "KV_TimeSheet_Booking_Dev",
-        "username": "kiotvietdev",
-        "password": "C1t1g000$6162"
+        "database": "KV_TimeSheet_Booking_Stg",
+        "username": "sa",
+        "password": "mssql#C1t1g0@sa"
     },
     "BookingSpa_KiotVietTimeSheetDatabaseS2": {
-        "server": "10.24.113.1",
+        "server": "10.24.113.2",
         "port": "1433",
-        "database": "KV_TimeSheet_Booking_Dev2",
-        "username": "kiotvietdev",
-        "password": "C1t1g000$6162"
-    },
-    "BookingKeivi_KiotVietTimeSheetKeiviDatabase": {
-        "server": "dc2d-employee-mssql-01.citigo.io",
-        "port": "1433",
-        "database": "KV_TimeSheet_Keivi_Dev",
+        "database": "KV_TimeSheet_Booking_Stg2",
         "username": "sa",
         "password": "mssql#C1t1g0@sa"
     },
     "BookingHotel_KiotVietTimeSheetDatabase": {
-        "server": "10.24.113.1",
+        "server": "10.24.113.2",
         "port": "1433",
-        "database": "KV_TimeSheet_Hotel_Dev",
-        "username": "kiotvietdev",
-        "password": "C1t1g000$6162"
+        "database": "KV_TimeSheet_Hotel_Stg",
+        "username": "sa",
+        "password": "mssql#C1t1g0@sa"
+    },
+    "BookingKeivi_KiotVietTimeSheetKeiviDatabase": {
+        "server": "dc2s-employee-mssql-01.citigo.io",
+        "port": "1433",
+        "database": "KV_TimeSheet_Keivi_Staging",
+        "username": "sa",
+        "password": "mssql#C1t1g0@sa"
     }
 }

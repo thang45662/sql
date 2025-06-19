@@ -9,7 +9,7 @@ set "PASSWORD=C1t1g000$6162"
 
 :: --- Path ---
 set "ROOT_FOLDER=%~dp0"
-set "SQL_FOLDER_RELATIVE=sql_for_salon_dev_v10"
+set "SQL_FOLDER_RELATIVE=sql_for_salon_dev_v1"
 set "SQL_FOLDER=%ROOT_FOLDER%%SQL_FOLDER_RELATIVE%"
 set "LOG_FOLDER=%SQL_FOLDER%\Logs"
 set "LOG_FILE=%LOG_FOLDER%\combined_sql_log.txt"

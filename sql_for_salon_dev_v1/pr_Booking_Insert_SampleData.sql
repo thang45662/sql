@@ -20,18 +20,6 @@ BEGIN
 	-- tạo chức danh
 	EXEC [pr_Booking_Insert_SampleData_JobTitles] @tenantId, @userIdAdmin, @language
 
-	--------------------   -----------------------
-
-	-- tạo phụ cấp
-	EXEC [pr_Booking_Insert_TrialData_Allowance] @tenantId, @userIdAdmin, @language, @allowanceId OUTPUT
-
-	-- tạo giảm trừ
-	EXEC [pr_Booking_Insert_TrialData_Deduction] @tenantId, @userIdAdmin, @language, @deductionId OUTPUT
-
-	-- tạo mẫu lương
-	EXEC [pr_Booking_Insert_TrialData_PayRateTemplate] @tenantId, @branchId, @userIdAdmin, @language, @payRateTemplateId OUTPUT
-	EXEC [pr_Booking_Insert_TrialData_PayRateTemplateDetail] @tenantId, @userIdAdmin, @payRateTemplateId, @commissionId, @allowanceId, @deductionId
-
 END
 
 GO

@@ -1,1 +1,69 @@
---- 1 check xem wiki bảng lương
+### 4. CÁC MẬU LƯƠNG MẬU
+
+#### Mẫu lương: Nhân viên bán hàng
+
+* **Thưởng**:
+
+  * Loại: Theo doanh thu cá nhân
+  * Hình thức: Dịch vụ thực hiện + tư vấn bán hàng
+  * Cấu hình:
+
+    * Thực hiện dịch vụ: Ừ 10,000,000 VNĐ → 2%
+    * Tư vấn bán hàng: Ừ 5,000,000 VNĐ → 1.5%
+* **Hoa hồng**:
+
+  * Thực hiện dịch vụ: Ừ 2,000,000 → "Hoa hồng chung"
+  * Tư vấn bán hàng: Ừ 1,000,000 → "Hoa hồng chung"
+* **Phụ cấp**: Ăn trưa cố định 50,000 VNĐ/ngày
+* **Giảm trừ**: Đi muộn: 20,000 VNĐ/lần
+
+#### Mẫu lương: Nhân viên làm dịch vụ
+
+* **Thưởng**:
+
+  * Theo doanh thu cá nhân, dịch vụ thực hiện + tư vấn
+  * Ừ 15,000,000 VNĐ → 3%
+* **Hoa hồng**: Ừ 2,000,000 → "Hoa hồng chung"
+* **Phụ cấp**: Ăn trưa cố định 50,000 VNĐ/ngày
+* **Giảm trừ**: Đi muộn: 20,000 VNĐ/lần
+
+#### Mẫu lương: Kế toán
+
+* **Thưởng**:
+
+  * Theo doanh thu chi nhánh (toàn hệ thống)
+  * Ừ 50,000,000 VNĐ → 5%
+* **Hoa hồng**: Không áp dụng
+* **Phụ cấp**: Ăn trưa cố định 50,000 VNĐ/ngày
+* **Giảm trừ**: Đi muộn: 20,000 VNĐ/lần
+
+#### Mẫu lương: Thu ngân
+
+* **Thưởng**:
+
+  * Theo doanh thu cá nhân, tư vấn bán hàng
+  * Ừ 20,000,000 VNĐ → 0.5%
+* **Hoa hồng**: Ừ 500,000 → "Hoa hồng chung"
+* **Phụ cấp**: Ăn trưa cố định 50,000 VNĐ/ngày
+* **Giảm trừ**: Đi muộn: 20,000 VNĐ/lần
+
+#### Mẫu lương: Quản lý
+
+* **Thưởng**:
+
+  * Theo doanh thu chi nhánh (toàn hệ thống)
+  * Ừ 50,000,000 VNĐ → 1%
+* **Hoa hồng**: Không áp dụng
+* **Phụ cấp**: Ăn trưa cố định 50,000 VNĐ/ngày
+* **Giảm trừ**: Đi muộn: 20,000 VNĐ/lần
+
+
+
+
+| **Tên mẫu lương**         | **Thưởng**                                                                                                            | **Hoa hồng**                                                                                                     | **Phụ cấp**                         | **Giảm trừ**               |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- | -------------------------- |
+| **Nhân viên bán hàng**    | - Theo doanh thu cá nhân<br>  • Thực hiện dịch vụ: từ 10 triệu → **2%**<br>  • Tư vấn bán hàng: từ 5 triệu → **1.5%** | - Thực hiện dịch vụ: từ 2 triệu → bảng "Hoa hồng chung"<br>- Tư vấn bán hàng: từ 1 triệu → bảng "Hoa hồng chung" | - Ăn trưa cố định: **50,000đ/ngày** | - Đi muộn: **20,000đ/lần** |
+| **Nhân viên làm dịch vụ** | - Theo doanh thu cá nhân<br>  • Thực hiện dịch vụ: từ 15 triệu → **3%**                                               | - Thực hiện dịch vụ: từ 2 triệu → bảng "Hoa hồng chung"                                                          | - Ăn trưa cố định: **50,000đ/ngày** | - Đi muộn: **20,000đ/lần** |
+| **Kế toán**               | - Theo doanh thu chi nhánh<br>  • Toàn hệ thống: từ 50 triệu → **5%** doanh thu tổng                                  | - Không áp dụng                                                                                                  | - Ăn trưa cố định: **50,000đ/ngày** | - Đi muộn: **20,000đ/lần** |
+| **Thu ngân**              | - Theo doanh thu cá nhân<br>  • Tư vấn bán hàng: từ 20 triệu → **0.5%**                                               | - Tư vấn bán hàng: từ 500,000 → bảng "Hoa hồng chung"                                                            | - Ăn trưa cố định: **50,000đ/ngày** | - Đi muộn: **20,000đ/lần** |
+| **Quản lý**               | - Theo doanh thu chi nhánh<br>  • Toàn hệ thống: từ 50 triệu → **1%** doanh thu tổng                                  | - Không áp dụng                                                                                                  | - Ăn trưa cố định: **50,000đ/ngày** | - Đi muộn: **20,000đ/lần** |

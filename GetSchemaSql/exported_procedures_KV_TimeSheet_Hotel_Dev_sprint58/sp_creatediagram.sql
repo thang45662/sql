@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_creatediagram.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_creatediagram
 	(
 		@diagramname 	sysname,

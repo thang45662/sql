@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_dropdiagram.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_dropdiagram
 	(
 		@diagramname 	sysname,

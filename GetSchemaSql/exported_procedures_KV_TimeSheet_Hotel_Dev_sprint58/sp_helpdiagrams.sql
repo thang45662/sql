@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_helpdiagrams.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_helpdiagrams
 	(
 		@diagramname sysname = NULL,

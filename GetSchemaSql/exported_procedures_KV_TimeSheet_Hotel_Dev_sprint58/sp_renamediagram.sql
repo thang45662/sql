@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_renamediagram.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_renamediagram
 	(
 		@diagramname 		sysname,

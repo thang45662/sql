@@ -1,0 +1,4 @@
+Msg 2714, Level 16, State 3, Server 10-24-113-1, Procedure pr_GetNextEmployeeCode, Line 5
+There is already an object named 'pr_GetNextEmployeeCode' in the database.
+Msg 3902, Level 16, State 1, Server 10-24-113-1, Line 2
+The COMMIT TRANSACTION request has no corresponding BEGIN TRANSACTION.

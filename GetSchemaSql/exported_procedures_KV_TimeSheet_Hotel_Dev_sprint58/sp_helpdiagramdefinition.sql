@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_helpdiagramdefinition.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_helpdiagramdefinition
 	(
 		@diagramname 	sysname,

@@ -1,3 +1,6 @@
+-- ========================
+-- File: sp_upgraddiagrams.sql
+-- ========================
 	ALTER PROCEDURE dbo.sp_upgraddiagrams
 	AS
 	BEGIN

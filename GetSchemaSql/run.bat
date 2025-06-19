@@ -9,7 +9,7 @@ set "PASSWORD=C1t1g000$6162"
 
 :: --- Path ---
 set "ROOT_FOLDER=%~dp0"
-set "SQL_FOLDER_RELATIVE=exported_procedures_KV_TimeSheet_Hotel_Dev_sprint58"
+set "SQL_FOLDER_RELATIVE=exported_procedures_KV_TimeSheet_Booking_Dev2_sprint58"
 set "SQL_FOLDER=%ROOT_FOLDER%%SQL_FOLDER_RELATIVE%"
 set "LOG_FOLDER=%SQL_FOLDER%\Logs"
 set "LOG_FILE=%LOG_FOLDER%\combined_sql_log.txt"
@@ -45,9 +45,6 @@ echo.
     echo BEGIN TRANSACTION;
     echo GO
     for %%F in ("%SQL_FOLDER%\*.sql") do (
-        echo -- ========================
-        echo -- File: %%~nxF
-        echo -- ========================
         type "%%F"
 
         echo.

@@ -1,0 +1,1436 @@
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_202402295
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate int NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_202402296
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate datetime NOT NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
+
+==============================
+📄 Bảng: dbo.Commission1
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(255) NOT NULL
+- IsActive bit NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- IsAllBranch bit NOT NULL
+- IsDefault bit NOT NULL
+
+==============================
+📄 Bảng: dbo.ScheduledNotification
+==============================
+- Id int NOT NULL
+- KvAppId int NOT NULL
+- RetailerId int NOT NULL
+- ScheduledDate datetime NOT NULL
+- ScheduledDateSince1970 int NOT NULL
+- ScheduledTimeIndex int NOT NULL
+- Type nvarchar(255) NOT NULL
+- Message nvarchar(-1) NOT NULL
+- ReceiverId int NULL
+- GroupKey nvarchar(255) NULL
+- CreatedDate datetime NOT NULL
+- ModifiedDate datetime NULL
+- IsPushed bit NOT NULL
+- Data nvarchar(4000) NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2025_02_07
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode varchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode varchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2025_02_07
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2025_02_07
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_check_in_out_2025_02_07
+==============================
+- Id int NOT NULL
+- CheckInDate datetime2 NULL
+- CheckOutDate datetime2 NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+
+==============================
+📄 Bảng: dbo.sysdiagrams
+==============================
+- name nvarchar(128) NOT NULL
+- principal_id int NOT NULL
+- diagram_id int NOT NULL
+- version int NULL
+- definition varbinary(-1) NULL
+
+==============================
+📄 Bảng: dbo.PaysheetDepartment
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- PaysheetId bigint NOT NULL
+- DepartmentId bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.__EFMigrationsHistory
+==============================
+- MigrationId nvarchar(150) NOT NULL
+- ProductVersion nvarchar(32) NOT NULL
+
+==============================
+📄 Bảng: dbo.KvBranch
+==============================
+- AppId int NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- Name nvarchar(4000) NULL
+- BaseUtcOffsetMinute int NULL
+- IsActive bit NOT NULL
+- IsDeleted bit NOT NULL
+- ModifiedDate datetime2 NULL
+- CreatedDate datetime2 NOT NULL
+- TimeZoneId nvarchar(500) NULL
+
+==============================
+📄 Bảng: dbo.Allowance
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(100) NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- TenantId int NOT NULL
+- Code nvarchar(450) NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- Value float NOT NULL
+- ValueRatio float NOT NULL
+- Type int NULL
+- IsChecked bit NOT NULL
+- Rank float NOT NULL
+- test float NOT NULL
+
+==============================
+📄 Bảng: dbo.AuditProcessFailEvent
+==============================
+- Id bigint NOT NULL
+- EventId uniqueidentifier NOT NULL
+- EventData ntext(1073741823) NOT NULL
+- EventType nvarchar(500) NOT NULL
+- ErrorMessage ntext(1073741823) NOT NULL
+- State int NOT NULL
+- RetryTimes int NOT NULL
+- ProcessedTime datetime2 NULL
+- CreatedTime datetime2 NOT NULL
+
+==============================
+📄 Bảng: dbo.Test
+==============================
+- Id bigint NOT NULL
+- test01 nchar(10) NULL
+- test02 nchar(10) NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_branch_fromUser
+==============================
+- BranchId int NOT NULL
+- TenantId int NOT NULL
+- EmployeeId bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_fromUser
+==============================
+- EmployeeId bigint NOT NULL
+- Code bigint NOT NULL
+- Name nvarchar(50) NOT NULL
+- DOB date NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- isDeleted bit NULL
+- MobilePhone nvarchar(50) NULL
+- Email nvarchar(255) NULL
+- Address nvarchar(255) NULL
+- LocationName nvarchar(100) NULL
+- WardName nvarchar(100) NULL
+- Note nvarchar(-1) NULL
+- IsActive bit NOT NULL
+- CreatedDate datetime NOT NULL
+- CreatedBy bigint NOT NULL
+- UserId bigint NOT NULL
+- IsUpdated int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_not_update_tenant_from_Holiday
+==============================
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_old_TenantNationalHoliday
+==============================
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_Tenants
+==============================
+- TenantId int NOT NULL
+- IsUpdated int NOT NULL
+
+==============================
+📄 Bảng: dbo.BranchSetting
+==============================
+- Id bigint NOT NULL
+- BranchId int NOT NULL
+- WorkingDays nvarchar(255) NULL
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.ConfirmClocking
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- GpsInfoId bigint NULL
+- EmployeeId bigint NOT NULL
+- CheckTimeStart datetime2 NOT NULL
+- CheckTimeEnd datetime2 NULL
+- Type tinyint NOT NULL
+- Status tinyint NOT NULL
+- Note nvarchar(2000) NULL
+- IdentityKeyClocking nvarchar(100) NULL
+- Extra nvarchar(4000) NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- ClockingType tinyint NOT NULL
+- BranchId int NOT NULL
+- CheckTime datetime2 NULL
+
+==============================
+📄 Bảng: dbo.Clocking
+==============================
+- Id bigint NOT NULL
+- TimeSheetId bigint NULL
+- ShiftId bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- WorkById bigint NOT NULL
+- ClockingStatus tinyint NOT NULL
+- StartTime datetime2 NOT NULL
+- EndTime datetime2 NOT NULL
+- Note nvarchar(500) NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- CheckInDate datetime2 NULL
+- CheckOutDate datetime2 NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- AbsenceType tinyint NULL
+- ClockingPaymentStatus tinyint NOT NULL
+
+==============================
+📄 Bảng: dbo.ClockingHistory
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NULL
+- CheckedOutDate datetime2 NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- TimeKeepingType tinyint NOT NULL
+- ClockingStatus tinyint NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ClockingHistoryStatus tinyint NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType tinyint NULL
+- ShiftId bigint NULL
+- ShiftFrom bigint NULL
+- ShiftTo bigint NULL
+- EmployeeId bigint NULL
+- CheckTime datetime2 NULL
+- AutoTimekeepingUid nvarchar(255) NULL
+
+==============================
+📄 Bảng: dbo.ClockingPenalize
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- PenalizeId bigint NOT NULL
+- Value decimal NOT NULL
+- TimesCount int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- TenantId int NOT NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- MoneyType int NOT NULL
+- ClockingPaymentStatus tinyint NOT NULL
+
+==============================
+📄 Bảng: dbo.Commission
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(255) NOT NULL
+- IsActive bit NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- IsAllBranch bit NOT NULL
+- IsDefault bit NOT NULL
+
+==============================
+📄 Bảng: dbo.CommissionBranch
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- CommissionId bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_Payslip_2024_07_01
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- OldTotalPayment money NOT NULL
+- NewTotalPayment int NOT NULL
+
+==============================
+📄 Bảng: dbo.CommissionDetail
+==============================
+- Id bigint NOT NULL
+- CommissionId bigint NOT NULL
+- Value decimal NULL
+- ValueRatio decimal NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- Type tinyint NOT NULL
+- ObjectId bigint NOT NULL
+- ProductId bigint NULL
+
+==============================
+📄 Bảng: dbo.TrailDataCollection
+==============================
+- Id int NOT NULL
+- EmployeeNumber int NULL
+- CreatedDate datetime NULL
+- CreatedBy int NULL
+- RetailerId int NOT NULL
+
+==============================
+📄 Bảng: dbo.OperationEventTest
+==============================
+- EventId uniqueidentifier NOT NULL
+- TenantId int NOT NULL
+- EventType nvarchar(500) NOT NULL
+- CreatedTime datetime2 NOT NULL
+- Data nvarchar(-1) NULL
+
+==============================
+📄 Bảng: dbo.ConfirmClockingHistory
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- ConfirmClockingId bigint NOT NULL
+- ConfirmBy bigint NOT NULL
+- ConfirmDate datetime2 NOT NULL
+- StatusOld tinyint NOT NULL
+- StatusNew tinyint NOT NULL
+- Note nvarchar(2000) NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.OperationEventData
+==============================
+- EventId uniqueidentifier NOT NULL
+- Data nvarchar(-1) NOT NULL
+
+==============================
+📄 Bảng: dbo.TrialData
+==============================
+- Id int NOT NULL
+- ContactName nvarchar(255) NULL
+- ContactPhone varchar(50) NULL
+- EmployeeNumber int NULL
+- StartTrialDate datetime NULL
+- ExpiredDate datetime NULL
+- CreatedDate datetime NULL
+- CreatedBy int NULL
+- RetailerId int NOT NULL
+
+==============================
+📄 Bảng: dbo.CronSchedule
+==============================
+- Id bigint NOT NULL
+- Type int NOT NULL
+- Title nvarchar(250) NULL
+- TenantCode varchar(100) NULL
+- TenantId int NOT NULL
+- BranchId int NULL
+- Params nvarchar(2000) NULL
+- LastSync datetime NOT NULL
+- NextRun datetime NOT NULL
+- LimitRun datetime NULL
+- CreatedDate datetime NOT NULL
+- ModifiedDate datetime NULL
+- CreatedBy int NOT NULL
+- IsActive bit NOT NULL
+- Duration int NOT NULL
+- IsRunning bit NOT NULL
+- Processed int NOT NULL
+
+==============================
+📄 Bảng: dbo.Deduction
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(100) NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- TenantId int NOT NULL
+- Code nvarchar(450) NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- Value decimal NULL
+- ValueRatio float NULL
+- ValueType int NULL
+- DeductionRuleId int NOT NULL
+- DeductionTypeId int NOT NULL
+- BlockTypeTimeValue int NOT NULL
+- BlockTypeMinuteValue int NOT NULL
+
+==============================
+📄 Bảng: dbo.OperationEvent
+==============================
+- EventId uniqueidentifier NOT NULL
+- TenantId int NOT NULL
+- EventType nvarchar(500) NOT NULL
+- Data nvarchar(-1) NOT NULL
+- CreatedTime datetime2 NOT NULL
+- Id bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2025_04_14
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode nvarchar(100) NULL
+- OldName nvarchar(255) NULL
+- NewCode nvarchar(100) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.Department
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(50) NOT NULL
+- Description nvarchar(500) NULL
+- IsActive bit NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2025_04_14
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus int NULL
+- NewTimeSheetStatus int NULL
+
+==============================
+📄 Bảng: dbo.backup_Payslip_2024_07_22
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- OldTotalPayment money NOT NULL
+- NewTotalPayment int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2025_04_14
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.Employee
+==============================
+- Id bigint NOT NULL
+- Code nvarchar(255) NOT NULL
+- NickName nvarchar(255) NULL
+- Name nvarchar(255) NOT NULL
+- DOB datetime2 NULL
+- Gender bit NULL
+- IsActive bit NOT NULL
+- IdentityNumber nvarchar(255) NULL
+- MobilePhone nvarchar(255) NULL
+- Email nvarchar(255) NULL
+- Facebook nvarchar(255) NULL
+- Address nvarchar(255) NULL
+- LocationName nvarchar(255) NULL
+- WardName nvarchar(255) NULL
+- Note nvarchar(500) NULL
+- UserId bigint NULL
+- DepartmentId bigint NULL
+- JobTitleId bigint NULL
+- IdentityKeyClocking nvarchar(100) NULL
+- AccountSecretKey nvarchar(100) NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- SecretKeyTakenUserId bigint NULL
+- StandardizedMobilePhone nvarchar(255) NULL
+- StartWorkingDate datetime2 NULL
+- ModelDeviceClocking nvarchar(100) NULL
+- IsRecoverable bit NOT NULL
+- ReturnToWorkDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.employee_existed_fromUser
+==============================
+- Id bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.EmployeeBranch
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- EmployeeId bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.ImportExportFile
+==============================
+- Id bigint NOT NULL
+- RetailerId int NOT NULL
+- KvSessionId nvarchar(255) NOT NULL
+- IsImport bit NULL
+- FileName nvarchar(255) NOT NULL
+- FilePath nvarchar(255) NULL
+- EventType nvarchar(50) NULL
+- Status tinyint NOT NULL
+- Message nvarchar(-1) NULL
+- Revision timestamp NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedBy bigint NULL
+- CreatedDate datetime NOT NULL
+- ModifiedDate datetime NULL
+
+==============================
+📄 Bảng: dbo.EmployeeProfilePicture
+==============================
+- Id bigint NOT NULL
+- ImageUrl nvarchar(4000) NOT NULL
+- IsMainImage bit NOT NULL
+- EmployeeId bigint NOT NULL
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2024_08_15
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode varchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode varchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2024_08_15
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.FingerMachine
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- MachineName nvarchar(50) NOT NULL
+- MachineId nvarchar(255) NOT NULL
+- Vendor nvarchar(255) NOT NULL
+- Status int NOT NULL
+- CreatedDate datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedDate datetime2 NULL
+- ModifiedBy bigint NULL
+- Note nvarchar(255) NULL
+- IpAddress varchar(100) NULL
+- Commpass int NULL
+- Port int NULL
+- ConnectionType int NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2024_08_15
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.FingerPrint
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- FingerCode nvarchar(255) NOT NULL
+- EmployeeId bigint NOT NULL
+- FingerName nvarchar(255) NULL
+- FingerNo int NOT NULL
+- CreatedDate datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedDate datetime2 NULL
+- ModifiedBy bigint NULL
+
+==============================
+📄 Bảng: dbo.PreloadedProductRevenue
+==============================
+- Id int NOT NULL
+- AppId int NOT NULL
+- TenantId int NOT NULL
+- EmployeeId bigint NOT NULL
+- BillCode nvarchar(100) NULL
+- ProductId bigint NOT NULL
+- UserId int NULL
+- BranchId int NOT NULL
+- MasterId int NULL
+- CategoryIds nvarchar(4000) NULL
+- TotalCommission decimal NOT NULL
+- Quantity float NOT NULL
+- ReturnCode nvarchar(100) NULL
+- DateOfPayment datetime2 NOT NULL
+- TotalEmployee int NOT NULL
+- CommissionRatio float NOT NULL
+- CommissionValue decimal NOT NULL
+- CommissionType int NOT NULL
+- CustomerId bigint NULL
+- UniqueId nvarchar(100) NOT NULL
+- IsByCounselor bit NOT NULL
+- CommissionSetting int NULL
+- RevenueTypeSetting int NULL
+- DiscountSetting int NULL
+- DiscountSettingCounselor int NULL
+- LastSyncedTotal int NOT NULL
+- LastSyncedTransactionTotal int NOT NULL
+- LastSyncedTransactionId uniqueidentifier NOT NULL
+- FirstSyncedTime datetime2 NOT NULL
+- LastSyncedTime datetime2 NOT NULL
+- Uid nvarchar(267) NULL
+- Hash bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.GpsInfo
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- Coordinate nvarchar(2000) NULL
+- Address nvarchar(100) NULL
+- LocationName nvarchar(100) NULL
+- WardName nvarchar(100) NULL
+- Province nvarchar(100) NULL
+- District nvarchar(100) NULL
+- Status tinyint NOT NULL
+- QrKey nvarchar(100) NOT NULL
+- RadiusLimit int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.Holiday
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(255) NOT NULL
+- From datetime2 NOT NULL
+- To datetime2 NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- Bonus decimal NULL
+- IsBonusApplied bit NOT NULL
+
+==============================
+📄 Bảng: dbo.IntegrationEventLogEntry
+==============================
+- EventId uniqueidentifier NOT NULL
+- TransactionId uniqueidentifier NOT NULL
+- EventType nvarchar(-1) NOT NULL
+- Data nvarchar(-1) NOT NULL
+- CreatedTime datetime2 NOT NULL
+- State int NOT NULL
+- ProcessedTime datetime2 NULL
+- TimeSent int NOT NULL
+
+==============================
+📄 Bảng: dbo.JobTitle
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(50) NOT NULL
+- Description nvarchar(500) NULL
+- IsActive bit NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.NationalHoliday
+==============================
+- Id int NOT NULL
+- Name nvarchar(250) NOT NULL
+- StartDay tinyint NOT NULL
+- EndDay tinyint NOT NULL
+- StartMonth tinyint NOT NULL
+- EndMonth tinyint NOT NULL
+- IsLunarCalendar bit NOT NULL
+
+==============================
+📄 Bảng: dbo.PayRate
+==============================
+- Id bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- PayRateTemplateId bigint NULL
+- TenantId int NOT NULL
+- CreatedDate datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- SalaryPeriod tinyint NOT NULL
+- ApplyDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+
+==============================
+📄 Bảng: dbo.OnboardingExperience
+==============================
+- TenantId int NOT NULL
+- LastShownAt datetime2 NULL
+- ShownCountInMonth int NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedDate datetime2 NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+
+==============================
+📄 Bảng: dbo.PayRateDetail
+==============================
+- Id bigint NOT NULL
+- PayRateId bigint NOT NULL
+- RuleType nvarchar(255) NOT NULL
+- RuleValue nvarchar(-1) NULL
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.PayRateTemplate
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- Name nvarchar(250) NOT NULL
+- SalaryPeriod tinyint NOT NULL
+- BranchId int NOT NULL
+- CreatedDate datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- Status int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2024_08_28
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode varchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode varchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2024_08_28
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.PayRateTemplateDetail
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- PayRateTemplateId bigint NOT NULL
+- RuleType nvarchar(255) NOT NULL
+- RuleValue ntext(1073741823) NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2024_08_28
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.Paysheet
+==============================
+- Id bigint NOT NULL
+- Code nvarchar(255) NOT NULL
+- TenantId int NOT NULL
+- BranchId int NOT NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- Name nvarchar(-1) NULL
+- SalaryPeriod tinyint NOT NULL
+- StartTime datetime2 NOT NULL
+- EndTime datetime2 NOT NULL
+- PaysheetStatus tinyint NOT NULL
+- Note nvarchar(2000) NULL
+- WorkingDayNumber float NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- PaysheetPeriodName nvarchar(255) NOT NULL
+- CreatorBy bigint NOT NULL
+- PaysheetCreatedDate datetime2 NULL
+- Version bigint NOT NULL
+- IsDraft bit NOT NULL
+- TimeOfStandardWorkingDay float NULL
+- ErrorStatus int NULL
+- PreviousWorkingDayNumber float NULL
+- RevisionStatus tinyint NOT NULL
+- PaysheetOption tinyint NULL
+- ApprovedBy bigint NULL
+- ApprovedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2025_05_30
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode nvarchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode nvarchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_Payslip_2024_08_29
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- OldTotalPayment money NOT NULL
+- NewTotalPayment money NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2025_05_30
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus int NULL
+- NewTimeSheetStatus int NULL
+
+==============================
+📄 Bảng: dbo.Payslip
+==============================
+- Id bigint NOT NULL
+- Code nvarchar(255) NOT NULL
+- PaysheetId bigint NOT NULL
+- TenantId int NOT NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- Note nvarchar(2000) NULL
+- PayslipStatus tinyint NOT NULL
+- EmployeeId bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- MainSalary money NOT NULL
+- CommissionSalary money NOT NULL
+- OvertimeSalary money NOT NULL
+- Allowance money NOT NULL
+- Deduction money NOT NULL
+- Bonus money NOT NULL
+- NetSalary money NOT NULL
+- GrossSalary money NOT NULL
+- TotalPayment money NOT NULL
+- IsDraft bit NOT NULL
+- PayslipCreatedDate datetime2 NULL
+- PayslipCreatedBy bigint NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2025_05_30
+==============================
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2024_09_01
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2024_09_01
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+- DeletedDate date NULL
+
+==============================
+📄 Bảng: dbo.PayslipClocking
+==============================
+- Id bigint NOT NULL
+- PayslipId bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckInDate datetime2 NULL
+- CheckOutDate datetime2 NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- AbsenceType tinyint NULL
+- ClockingStatus tinyint NOT NULL
+- StartTime datetime2 NOT NULL
+- EndTime datetime2 NOT NULL
+- ShiftId bigint NOT NULL
+
+==============================
+📄 Bảng: dbo.PayslipClockingPenalize
+==============================
+- Id bigint NOT NULL
+- PayslipId bigint NOT NULL
+- ClockingId bigint NOT NULL
+- PenalizeId bigint NOT NULL
+- PenalizeName nvarchar(255) NULL
+- Value decimal NOT NULL
+- TimesCount int NOT NULL
+- MoneyType int NOT NULL
+- ClockingPenalizeCreated datetime2 NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- ShiftId bigint NULL
+
+==============================
+📄 Bảng: dbo.PayslipDetail
+==============================
+- Id bigint NOT NULL
+- PayslipId bigint NOT NULL
+- RuleType nvarchar(255) NOT NULL
+- RuleValue ntext(1073741823) NOT NULL
+- RuleParam ntext(1073741823) NOT NULL
+- TenantId int NOT NULL
+
+==============================
+📄 Bảng: dbo.PayslipPenalize
+==============================
+- Id bigint NOT NULL
+- PayslipId bigint NOT NULL
+- PenalizeId bigint NOT NULL
+- PenalizeName nvarchar(255) NULL
+- Value decimal NOT NULL
+- TimesCount int NOT NULL
+- MoneyType int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- IsActive bit NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_Settings_2010
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- Name nvarchar(250) NULL
+- OldValue nvarchar(500) NULL
+- NewValue nvarchar(500) NULL
+- IsActive bit NOT NULL
+- CreatedDate datetime2 NOT NULL
+
+==============================
+📄 Bảng: dbo.Penalize
+==============================
+- Id bigint NOT NULL
+- Code nvarchar(450) NULL
+- Name nvarchar(255) NOT NULL
+- Value decimal NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- TenantId int NOT NULL
+- IsDeleted bit NOT NULL
+- DeletedDate datetime2 NULL
+- DeletedBy bigint NULL
+- Type tinyint NOT NULL
+
+==============================
+📄 Bảng: dbo.Settings
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- Name nvarchar(250) NULL
+- Value nvarchar(500) NULL
+- IsActive bit NOT NULL
+- CreatedDate datetime2 NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2024_09_26
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode varchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode varchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2024_09_26
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.Shift
+==============================
+- Id bigint NOT NULL
+- Name nvarchar(250) NOT NULL
+- From bigint NOT NULL
+- To bigint NOT NULL
+- IsActive bit NOT NULL
+- IsDeleted bit NOT NULL
+- BranchId int NOT NULL
+- CheckInBefore bigint NULL
+- CheckOutAfter bigint NULL
+- TenantId int NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2024_09_26
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.TenantNationalHoliday
+==============================
+- Id bigint NOT NULL
+- TenantId int NOT NULL
+- LastCreatedYear int NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_employee_2024_09_17
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- OldCode varchar(50) NULL
+- OldName nvarchar(255) NULL
+- NewCode varchar(50) NULL
+- NewName nvarchar(255) NULL
+- IsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.backup_timesheet_2024_09_17
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- TimeSheetId bigint NULL
+- OldTimeSheetStatus tinyint NULL
+- NewTimeSheetStatus tinyint NULL
+
+==============================
+📄 Bảng: dbo.TimeSheet
+==============================
+- Id bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- StartDate datetime2 NOT NULL
+- EndDate datetime2 NOT NULL
+- IsRepeat bit NULL
+- RepeatType tinyint NULL
+- RepeatEachDay tinyint NULL
+- BranchId int NOT NULL
+- TenantId int NOT NULL
+- CreatedBy bigint NOT NULL
+- CreatedDate datetime2 NOT NULL
+- ModifiedBy bigint NULL
+- ModifiedDate datetime2 NULL
+- IsDeleted bit NOT NULL
+- DeletedBy bigint NULL
+- DeletedDate datetime2 NULL
+- TimeSheetStatus tinyint NOT NULL
+- SaveOnDaysOffOfBranch bit NOT NULL
+- SaveOnHoliday bit NOT NULL
+- Note nvarchar(250) NULL
+- AutoGenerateClockingStatus tinyint NOT NULL
+- IsAppliedForNextWeeks bit NULL
+- ParentTimeSheetId bigint NULL
+- TimeSheetTrackingType tinyint NULL
+
+==============================
+📄 Bảng: dbo.backup_clocking_2024_09_17
+==============================
+- Id int NOT NULL
+- TenantId bigint NULL
+- EmployeeId bigint NULL
+- ClockingId bigint NULL
+- OldIsDeleted bit NULL
+- NewIsDeleted bit NULL
+
+==============================
+📄 Bảng: dbo.TimeSheetShift
+==============================
+- Id bigint NOT NULL
+- TimeSheetId bigint NOT NULL
+- ShiftIds nvarchar(1000) NOT NULL
+- RepeatDaysOfWeek nvarchar(500) NULL
+- DayOfWeek ntext(1073741823) NOT NULL
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_20240229
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate int NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_20240229_1
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate int NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_202402293
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate int NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
+
+==============================
+📄 Bảng: dbo.backup_ClockingHistory_202402294
+==============================
+- Id bigint NOT NULL
+- ClockingId bigint NOT NULL
+- CheckedInDate datetime2 NOT NULL
+- CheckedOutDate datetime2 NOT NULL
+- TimeIsLate int NOT NULL
+- OverTimeBeforeShiftWork int NOT NULL
+- TimeIsLeaveWorkEarly int NOT NULL
+- OverTimeAfterShiftWork int NOT NULL
+- TenantId int NULL
+- BranchId int NOT NULL
+- TimeKeepingType int NOT NULL
+- ClockingStatus int NOT NULL
+- ModifiedBy int NULL
+- ModifiedDate int NULL
+- CreatedBy int NOT NULL
+- CreatedDate datetime NOT NULL
+- ClockingHistoryStatus int NOT NULL
+- TimeIsLateAdjustment int NOT NULL
+- OverTimeBeforeShiftWorkAdjustment int NOT NULL
+- TimeIsLeaveWorkEarlyAdjustment int NOT NULL
+- OverTimeAfterShiftWorkAdjustment int NOT NULL
+- AbsenceType int NULL
+- ShiftId bigint NOT NULL
+- ShiftFrom bigint NOT NULL
+- ShiftTo bigint NOT NULL
+- EmployeeId bigint NOT NULL
+- CheckTime datetime NOT NULL
+- AutoTimekeepingUid int NULL
